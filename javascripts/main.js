@@ -1,3 +1,5 @@
 "use strict";
 
-console.log("in main");
+const dom = require('./dom');
+
+dom.domStringAreas();
