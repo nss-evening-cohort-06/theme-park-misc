@@ -4,4 +4,4 @@ const time = require("./time");
 
 console.log("in main");
 
-// time.getSelectedTime();
+time.getSelectedTime();

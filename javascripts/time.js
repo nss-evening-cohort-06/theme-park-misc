@@ -8,9 +8,14 @@ const getCurrentTime = () => {
 
 const getSelectedTime = () => {
 	// uses dropDown time picker ...
-	$("#time-picker").change(() => {
-		console.log("change detected");
+	$("#time").click(() => {
+					console.log("change detected on click");
+
+		$("#dropdown").change(() => {
+			console.log("change detected on change");
+		});
 	});
+
 		// .. returns selected time
 };
 
