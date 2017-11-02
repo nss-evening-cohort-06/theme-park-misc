@@ -1,4 +1,5 @@
 @import 'colors';
+@import 'variables';
 
 body {
 	background-color: $lightblue;
@@ -6,4 +7,10 @@ body {
 
 .area-border {
 	border: solid 2px black;
+}
+
+.scrollable-menu {
+    height: auto;
+    max-height: 150px;
+    overflow-x: hidden;
 }
