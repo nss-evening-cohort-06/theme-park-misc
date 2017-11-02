@@ -1,0 +1,11 @@
+{ 
+    "firebase": {
+        "apiKey": "AIzaSyCRpUkPkpAqOZZBtjJFrIVXXnmVhMhib6k",
+        "authDomain": "themepark-map.firebaseapp.com",
+        "databaseURL": "https://themepark-map.firebaseio.com",
+        "projectId": "themepark-map",
+        "storageBucket": "themepark-map.appspot.com",
+        "messagingSenderId": "821757012750"
+    }
+}
+ 

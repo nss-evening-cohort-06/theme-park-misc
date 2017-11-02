@@ -7,20 +7,20 @@ const domStringAreas = (areaCollection) => {
 		// and the area id as a data attribute
 
 
-	clearDom();
-	printAreasToDom();
+	//clearDom();
+	//printAreasToDom();
 };
 
 const domStringDetails = (detailType, detailValue) => {
-	getAttractionByAreaId(detailValue);
+	//getAttractionByAreaId(detailValue);
 	//detailType = either "area" or "details"
 	// parkMash = entire combined park array
 	// detailValue = areaID or time
 		// DetailValue will essentially filter through the parkMash ...
 		// ... and only give out things that match/contain the areaID or Time
 
-	clearDom();
-	printDetailsToDom();
+	//clearDom();
+	//printDetailsToDom();
 };
 
 const clearDom = (divName) => {
