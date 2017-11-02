@@ -8,7 +8,7 @@ const domStringAreas = () => {
   	for (let i = 0; i < areaCollection.length; i++){
 
   		domStringAreas +=`<a href="#menu-toggle" class="menu-toggle"><div class="col-sm-6 col-md-4">`;
-    	domStringAreas +=	`<div class="thumbnail">`;
+    	domStringAreas +=	`<div class="thumbnail" style="background-color:#${areaCollection[i].colorTheme}">`;
     	domStringAreas +=	`<h3 class="areaName">${areaCollection[i].Name}</h3>`;
     	domStringAreas +=	`<h3 class="areaId">${areaCollection[i].id}</h3>`;
     	domStringAreas +=	`<h3 class="colorTheme">${areaCollection[i].colorTheme}</h3>`;
