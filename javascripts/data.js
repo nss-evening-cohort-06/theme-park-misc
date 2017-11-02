@@ -1,5 +1,7 @@
 "use strict";
 
+const dom = require('./dom'); 
+
 //FIREBASE
 
 let firebaseKey = '';
@@ -24,11 +26,13 @@ const retrieveKeys = () => {
     apiKeys().then((results) => {        
         setFirebaseKey(results.firebase);
         firebase.initializeApp(results.firebase);
+        return getAreas();
+    }).then((areas) => {
+        dom.domStringAreas(areas); 
     }).catch((error) => {
         console.log(error); 
     });
 };
-
 
 //PROMISES 
 
@@ -122,7 +126,6 @@ const getAttractionTypes = () => {
     });
 };
 
-
 const getAreas = () => {
     let areas = []; 
     let key = ''; 
@@ -140,7 +143,6 @@ const getAreas = () => {
         });
     });
 };
-
 
 const getParkInfo = () => {
     let info = []; 
@@ -161,9 +163,12 @@ const getParkInfo = () => {
 };
 
 module.exports = {
-	getAttractionsByAreaId,
-	getAreas,
-	getAttractions,
-	getAttractionTypes,
+    getAttractions,
+    getAttractionsByAreaId,
+    getAttractionsByType,
+    getAttractionsByName,
+    getAttractionTypes,
+    getAreas,
+    getParkInfo,
 	retrieveKeys
 };
