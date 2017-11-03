@@ -1,7 +1,8 @@
 "use strict";
 
 const time = require("./time");
+const dom = require('./dom');
 
-console.log("in main");
+dom.domStringAreas();
 
 time.getSelectedTime();
