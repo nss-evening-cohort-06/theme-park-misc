@@ -28,7 +28,7 @@ const retrieveKeys = () => {
         firebase.initializeApp(results.firebase);
         return getAreas();
     }).then((areas) => {
-        dom.domStringAreas(areas); 
+        dom.domStringAreas(areas);
     }).catch((error) => {
         console.log(error); 
     });
@@ -162,12 +162,38 @@ const getParkInfo = () => {
     });
 };
 
+const getAttractionsWithTypeByAreaId = (areaId) => {
+    let attractions = []; 
+    return new Promise ((resolve, reject) => {
+        getAttractionsByAreaId(areaId).then((_attractions) => {
+            attractions = _attractions; 
+            return getAttractionTypes();
+        }).then((types) => {
+            let attractionsWithType = attractions.map((attraction) => {
+                let obj = Object.assign(attraction); 
+                types.forEach((type) => {
+                    if (attraction.type_id == type.id) {
+                        obj.attractionType = type.name;
+                    }
+                });
+                return obj;
+            });
+            resolve(attractionsWithType);
+        }).catch((err) => {
+            reject(err);
+        });
+    });
+};
+
+
+
 module.exports = {
     getAttractions,
     getAttractionsByAreaId,
     getAttractionsByType,
     getAttractionsByName,
     getAttractionTypes,
+    getAttractionsWithTypeByAreaId,
     getAreas,
     getParkInfo,
 	retrieveKeys
