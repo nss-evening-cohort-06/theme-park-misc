@@ -6,7 +6,7 @@ const domStringAreas = (areaCollection) => {
   	for (let i = 0; i < areaCollection.length; i++){
 
   		domStringAreas +=`<div class="col-sm-6 col-md-4"><a href="#menu-toggle" class="menu-toggle">`;
-    	domStringAreas +=	`<div class="thumbnail" data-area-id:"${areaCollection[1].id}" style="background-color:#${areaCollection[i].colorTheme}">`;
+    	domStringAreas +=	`<div class="thumbnail" data-area-id:"${areaCollection[i].id}" style="background-color:#${areaCollection[i].colorTheme}">`;
     	domStringAreas +=		`<h3 class="areaName">${areaCollection[i].name}</h3>`;
     	domStringAreas +=	`</div>`;
     	domStringAreas +=`</a></div>`;
