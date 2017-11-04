@@ -32,9 +32,14 @@ const highlightAreas = (matchingIds) => {
 };
 
 const clickArea = () => {
+	$('.thumbnail').click(() => {
+
+	});
 	// when user clicks on a particular area ...
 		// ... then a list of attracitons in that area is populated on the sidebar
 		// ... AND finds the areaId of the clicked area ...
 			// ... sends values to domStringDetails
 	//dom.domStringDetails("area", parkMash, areaId);
 };
+
+module.exports = {clickArea};
