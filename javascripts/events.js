@@ -10,7 +10,8 @@ const pressEnter = () => {
 	$("#searchBox").keypress(function (e) {
 		let keyCode = e.keyCode || e.which; 
 		if (keyCode === 13) {
-			e.preventDefault(); 
+			e.preventDefault();
+			$('.thumbnail').removeClass("area-border");  
 			if (this.value !== '') {
 				matchingAttractions(this.value);
 			}
@@ -35,13 +36,12 @@ const matchingAttractions = (searchInputValue) => {
 
 
 const highlightAreas = (matchingIds) => {
-	$('.thumbnail').removeClass("highlight"); 
 	$('.thumbnail').each( function () {
 		let domElement = $(this); 
 		let domId = $(this).data("area-id");
 		matchingIds.forEach((id) => {
 			if (id === domId) {
-				domElement.addClass("highlight");
+				domElement.addClass("area-border");
 			}
 		});
 	});
