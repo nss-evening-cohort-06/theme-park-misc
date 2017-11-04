@@ -1,6 +1,7 @@
 @import 'colors';
 @import 'variables';
 @import 'togglemenu';
+@import '../lib/node_modules/pikaday/scss/pikaday.scss';
 
 body {
 	background-color: $lightblue;

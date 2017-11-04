@@ -1,18 +1,31 @@
 "use strict";
 
+
 const moment = require("../lib/node_modules/moment/moment.js");
+const Pikaday = require("../lib/node_modules/pikaday/pikaday.js");
+
+// let $picker = document.getElemntById('datepicker').pikaday({firstDay: 1});
+var picker = new Pikaday({
+	field: document.getElementById('datepicker')
+});
 
 // if the user selects a day and time maintenance_date ...
 	// up to the time of the end of the first maintenance_duration_hours ...
 		// do not show that ride
 	//
-
 const getCurrentTime = () => {
 	// calls moment function ...
 		// ...returns the current time
-console.log(moment().format("dddd, MMMM d YYYY, hA"));
-console.log(moment("Fri Nov 10 2017 18:30:00 GMT-0500 (CDT)").format("dddd, MMMM d YYYY, hA"));
 
+	let currentDate = picker.getMoment().format("YYYY-MM-DD");
+	let currentDateFormated = moment(currentDate).format("dddd, MMMM DD YYYY");
+	let currentTime = moment().format("hA");
+	let currentDateAndTime = currentDateFormated + " " + currentTime;
+
+	console.log("the format our JSON gives us", moment("Fri Nov 10 2017 18:30:00 GMT-0500 (CDT)").format("dddd, MMMM d YYYY, hA"));
+	console.log("current time and date from the picker", currentDateAndTime);
+
+// return timeAndDate
 };
 
 // Add day picker
@@ -27,19 +40,16 @@ console.log(moment("Fri Nov 10 2017 18:30:00 GMT-0500 (CDT)").format("dddd, MMMM
 		// needs to report back the hour
 		// AND needs to show if it's AM or PM
 
+// const getSelectedDay = (eVent) => {
+// 	console.log();
+// };
+
 const getSelectedTime = (event) => {
 	// uses dropDown time picker ...
-	console.log("event", event);
+	console.log("time selection", event);
 			if (event.currentTarget.nodeName === "UL") {
 
-				let hour = event.target.innerHTML;
-				let clickedHour = event.target.innerHTML.split(":");
-				let justHour = clickedHour.shift();
-				let timeOfDay = clickedHour.pop().split("00 ").pop();
-
-				console.log("hour", hour);
-				console.log("just the hour clicked", justHour);
-				console.log("just the AM or PM of click", timeOfDay);
+				
 				}
 
 		// .. returns selected time

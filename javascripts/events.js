@@ -54,7 +54,7 @@ const showAttractionsByTime = () => {
 
 	// get attractions ...
 		$(document).ready(time.getCurrentTime());
-		$( "#datepicker" ).datepicker();
+			// $(document).ready(dom.domStringDetails("time", time.getCurrentTime()));
 
 		// ON PAGE LOAD ...
 		// ... filter attractions based on the time the user clicked
