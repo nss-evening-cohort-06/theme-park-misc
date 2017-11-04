@@ -6,7 +6,7 @@ const domStringAreas = (areaCollection) => {
   	for (let i = 0; i < areaCollection.length; i++){
 
   		domStringAreas +=`<div class="col-sm-6 col-md-4">`;
-    	domStringAreas +=	`<div class="thumbnail" data-area-id:"${areaCollection[i].id}" style="background-color:#${areaCollection[i].colorTheme}">`;
+    	domStringAreas +=	`<div class="thumbnail" data-area-id="${areaCollection[i].id}" style="background-color:#${areaCollection[i].colorTheme}">`;
     	domStringAreas +=		`<h3 class="areaName">${areaCollection[i].name}</h3>`;
     	domStringAreas +=	`</div>`;
     	domStringAreas +=`</div>`;
@@ -58,7 +58,6 @@ const clearDom = (divName) => {
 
 const printAreasToDom = (strang) => {
 	$("#areaHolder").append(strang);
-	$("#sidebar-wrapper").append(strang);
 };
 
 module.exports = {domStringAreas};

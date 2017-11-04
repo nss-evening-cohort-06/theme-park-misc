@@ -51,7 +51,11 @@
 },
 {
 "id": 7,
+<<<<<<< HEAD
 "name": "Cinderella Castle",
+=======
+"name": "Cinderlla Castle",
+>>>>>>> master
 "description": "Rising high in the sky at the end of Main Street, U.S.A., Cinderella Castle welcomes you to a magical world of fantasy and fun. The central icon of Walt Disney World Resort, the castle invites all who visit to celebrate in a place where dreams come true.",
 "colorTheme": "F2CF53"
 }
@@ -1373,6 +1377,11 @@
 "attraction_id": 105,
 "maintenance_date": "Sat Nov 11 2017 9:20:00 GMT-0500 (CDT)",
 "maintenance_duration_hours": 2
+<<<<<<< HEAD
+=======
+}
+]
+>>>>>>> master
 }
 ]
 }

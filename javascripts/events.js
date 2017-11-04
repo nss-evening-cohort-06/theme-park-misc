@@ -7,16 +7,44 @@ const time = require("./time");
 // let parkMash = data.getParkMash();
 
 const pressEnter = () => {
-	// find value of serach term ...
-	// ... sends value to matchingAttractions
-	//matchingAttractions(searchInputValue);
+	$("#searchBox").keypress(function (e) {
+		let keyCode = e.keyCode || e.which; 
+		if (keyCode === 13) {
+			e.preventDefault();
+			$('.thumbnail').removeClass("area-border");  
+			if (this.value !== '') {
+				matchingAttractions(this.value);
+			}
+		}
+	}); 
 };
 
 const matchingAttractions = (searchInputValue) => {
-	// loops through querried data to find any attraction names containing the search value ...
-	// any corresponding attractions' area_id is passed to an array ...
-		// ... sends array to highlightareas
-		//highlightAreas(arrayOfMatchingIds);
+	let matchingIds = [];
+	let uniqueMatchingIds = []; 
+	const regex = new RegExp(`${searchInputValue}`, 'gi');
+	data.getAttractions().then((attractions) => {
+		attractions.forEach((attraction) => {
+			if (regex.test(attraction.name)) {
+				matchingIds.push(attraction.area_id); 
+			}
+		});
+		console.log(matchingIds); 
+		highlightAreas(matchingIds);
+	}); 
+};
+
+
+const highlightAreas = (matchingIds) => {
+	$('.thumbnail').each( function () {
+		let domElement = $(this); 
+		let domId = $(this).data("area-id");
+		matchingIds.forEach((id) => {
+			if (id === domId) {
+				domElement.addClass("area-border");
+			}
+		});
+	});
 };
 
 // from getCurrentTime and getSelectedTime
@@ -27,14 +55,18 @@ const showAttractionsByTime = (chosenTime) => {
 		// ... 
 };
 
-const highlightAreas = (matchingIds) => {
-	// prints a border around all areas with a data-attribute corresponding to matchingIds; the array
-};
 
 const clickArea = () => {
-	$('.thumbnail').click(() => {
+	//do something to get the clicked thumbnail data-area-id (e.)
+	//getAttractionsByAreaId(pass area id from above)
+	// $('document').on("click", '.thumbnails'), (e) => {
+	// 	data.getAttractionsByAreaId(areaIdFromAbove).then((attraction) => {
+	// 		dom.printToSidebar(filteredAttractions);
+	// 	}).catch((err) => {
+	// 		console.log(err)
+	// 	});
+	// };
 
-	});
 	// when user clicks on a particular area ...
 		// ... then a list of attracitons in that area is populated on the sidebar
 		// ... AND finds the areaId of the clicked area ...
@@ -42,4 +74,5 @@ const clickArea = () => {
 	//dom.domStringDetails("area", parkMash, areaId);
 };
 
-module.exports = {clickArea};
+
+module.exports = {pressEnter, clickArea};
