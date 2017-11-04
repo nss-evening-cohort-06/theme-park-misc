@@ -7,7 +7,7 @@ body {
 }
 
 .area-border {
-	border: solid 2px black;
+	border: solid 2px $border;
 }
 
 .scrollable-menu {
@@ -59,8 +59,6 @@ body {
     position: absolute;
     margin-right: -250px;
 }
-
-
 
 
 
