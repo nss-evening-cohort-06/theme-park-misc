@@ -63,7 +63,7 @@ const domStringDetails = (detailType, detailValue) => {
 			} else {
 				// Time will display here...
 				// You may/may not have to change the dot notation, just an FYI
-				domStrang +=   `<p><strong>${detailsArray[i].attraction.name}</strong> ${detailsArray[i].areas.name}</p>`;
+				domStrang +=   `<p><strong>${detailsArray[i].attractions.name}</strong> ${detailsArray[i].areas.name}</p>`;
 			}
 
 			domStrang +=   `</div>`;
