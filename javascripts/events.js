@@ -9,14 +9,14 @@ const time = require("./time");
 const pressEnter = () => {
 	// find value of serach term ...
 	// ... sends value to matchingAttractions
-	matchingAttractions(searchInputValue);
+	//matchingAttractions(searchInputValue);
 };
 
 const matchingAttractions = (searchInputValue) => {
 	// loops through querried data to find any attraction names containing the search value ...
 	// any corresponding attractions' area_id is passed to an array ...
 		// ... sends array to highlightareas
-		highlightAreas(arrayOfMatchingIds);
+		//highlightAreas(arrayOfMatchingIds);
 };
 
 // from getCurrentTime and getSelectedTime
@@ -36,5 +36,5 @@ const clickArea = () => {
 		// ... then a list of attracitons in that area is populated on the sidebar
 		// ... AND finds the areaId of the clicked area ...
 			// ... sends values to domStringDetails
-	dom.domStringDetails("area", parkMash, areaId);
+	//dom.domStringDetails("area", parkMash, areaId);
 };

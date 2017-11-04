@@ -1,9 +1,7 @@
 "use strict";
 
-
 const dom = require('./dom');
+const data = require('./data');
 
-dom.domStringAreas();
-
-console.log("in main");
+data.retrieveKeys(); 
 
