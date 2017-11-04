@@ -1,9 +1,10 @@
 "use strict";
 
-// const time = require("./time");
-const dom = require('./dom');
-const events = require("./events");
 
-dom.domStringAreas();
+const data = require('./data');
+const time = require("./time");
+const events = require("./events");
+const dom = require('./dom');
+
+data.retrieveKeys();
 events.init();
-// time.getSelectedTime();

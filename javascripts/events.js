@@ -21,13 +21,15 @@ const time = require("./time");
 
 // from getCurrentTime and getSelectedTime
 const showAttractionsByTime = () => {
+	console.log("here!");
+
 	// get attractions ...
-
+		$(document).ready(time.getCurrentTime());
 		// ON PAGE LOAD ...
-
 		// ... filter attractions based on the time the user clicked
 			$(".dropdown-menu").click((e) => {
 				time.getSelectedTime(e);
+
  });
 		// ... and send those results to dom
 		// ... 
