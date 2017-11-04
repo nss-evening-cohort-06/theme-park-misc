@@ -6,7 +6,7 @@ body {
 }
 
 .area-border {
-	border: solid 2px black;
+	border: solid 2px $border;
 }
 
 
@@ -54,8 +54,6 @@ body {
     position: absolute;
     margin-right: -250px;
 }
-
-
 
 
 
