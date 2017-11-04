@@ -1,8 +1,8 @@
-// "use strict";
+"use strict";
 
 // const data = require("./data");
 // const dom = require("./dom");
-// const time = require("./time");
+const time = require("./time");
 
 // // let parkMash = data.getParkMash();
 
@@ -19,13 +19,19 @@
 // 		highlightAreas(arrayOfMatchingIds);
 // };
 
-// // from getCurrentTime and getSelectedTime
-// const showAttractionsByTime = (chosenTime) => {
-// 	// get attractions ...
-// 		// ... filter attractions based on the time the user clicked
-// 		// ... and send those results to dom
-// 		// ... 
-// };
+// from getCurrentTime and getSelectedTime
+const showAttractionsByTime = () => {
+	// get attractions ...
+
+		// ON PAGE LOAD ...
+
+		// ... filter attractions based on the time the user clicked
+			$(".dropdown-menu").click((e) => {
+				time.getSelectedTime(e);
+ });
+		// ... and send those results to dom
+		// ... 
+};
 
 // const highlightAreas = (matchingIds) => {
 // 	// prints a border around all areas with a data-attribute corresponding to matchingIds; the array
@@ -38,3 +44,9 @@
 // 			// ... sends values to domStringDetails
 // 	dom.domStringDetails("area", parkMash, areaId);
 // };
+
+const init = () => {
+	showAttractionsByTime();
+};
+
+module.exports = {init};

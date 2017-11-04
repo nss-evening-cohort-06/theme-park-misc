@@ -6,15 +6,18 @@ const getCurrentTime = () => {
 
 };
 
-const getSelectedTime = () => {
+const getSelectedTime = (event) => {
 	// uses dropDown time picker ...
-	$("#time").click(() => {
-					console.log("change detected on click");
 
-		$("#dropdown").change(() => {
-			console.log("change detected on change");
-		});
-	});
+			if (event.currentTarget.nodeName === "UL") {
+
+			let clickedHour = event.target.innerHTML.split(":");
+			let justHour = clickedHour.shift();
+			let timeOfDay = clickedHour.pop().split("00 ").pop();
+
+					console.log("just the hour clicked", justHour);
+					console.log("just the AM or PM of click", timeOfDay);
+				}
 
 		// .. returns selected time
 };
