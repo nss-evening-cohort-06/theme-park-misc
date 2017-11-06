@@ -10,8 +10,18 @@ const domStringAreas = (areaCollection) => {
     	domStringAreas +=		`<h3 class="areaName">${areaCollection[i].name}</h3>`;
     	domStringAreas +=	`</div>`;
     	domStringAreas +=`</a></div>`;
-
 	}
+		domStringAreas +=`<div class="container">`;
+		domStringAreas +=  `<div class="row">`;
+		domStringAreas +=    `<div class="col-sm-12">`;
+		domStringAreas +=      `<footer class="footer">`;
+    	domStringAreas +=        `<div class="container">`;
+    	domStringAreas +=          `<p class="text-muted">&copy; Today's Date, Current Year</p>`;
+    	domStringAreas +=        `</div>`;
+    	domStringAreas +=      `</footer>`;
+    	domStringAreas +=    `</div>`;
+    	domStringAreas +=  `</div>`;
+    	domStringAreas +=`</div>`;
 	printAreasToDom(domStringAreas);
 	toggleMeElmo();
 };
