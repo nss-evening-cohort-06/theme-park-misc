@@ -48,22 +48,31 @@ const highlightAreas = (matchingIds) => {
 		});
 	});
 };
-
+let userSelectedDateAndTime;
 // from getCurrentTime and getSelectedTime
 const showAttractionsByTime = () => {
+// only prints things when both fields have been filled in,
 
 	// get attractions ...
 		$(document).ready(time.getCurrentTime());
 			// $(document).ready(dom.domStringDetails("time", time.getCurrentTime()));
+		$("#datepicker").blur(() => {
+			userSelectedDateAndTime = time.getSelectedDay();
+			if (userSelectedDateAndTime != undefined) {
+				console.log("user elected goodies", userSelectedDateAndTime);				
+			}
 
-		// ON PAGE LOAD ...
-		// ... filter attractions based on the time the user clicked
-			$(".dropdown-menu").click((e) => {
-				time.getSelectedTime(e);
+		});
+
+		$(".dropdown-menu").click((e) => {
+			userSelectedDateAndTime = time.getSelectedTime(e);
+			if (userSelectedDateAndTime != undefined) {
+				console.log("user elected goodies", userSelectedDateAndTime);				
+			}
 
  });
-		// ... and send those results to dom
-		// ... 
+		// ON PAGE LOAD ...
+		// ... filter attractions based on the time the user clicked
 };
 
 const init = () => {

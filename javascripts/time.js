@@ -15,7 +15,10 @@ var picker = new Pikaday({
 	//
 const getCurrentTime = () => {
 	// calls moment function ...
+		// matches formats of database info and our info
 		// ...returns the current time
+			// for the currently happening things to show up in the sidebar
+			// and for our footer
 
 	let currentDate = picker.getMoment().format("YYYY-MM-DD");
 	let currentDateFormated = moment(currentDate).format("dddd, MMMM DD YYYY");
@@ -25,34 +28,44 @@ const getCurrentTime = () => {
 	console.log("the format our JSON gives us", moment("Fri Nov 10 2017 18:30:00 GMT-0500 (CDT)").format("dddd, MMMM d YYYY, hA"));
 	console.log("current time and date from the picker", currentDateAndTime);
 
-// return timeAndDate
+// return currentDateAndTime
 };
 
 // Add day picker
 
 // To compare the time clicked to any times in our data
 	// the time in our json file ...
-		// needs to be rounded down
+
 		// AND needs to show if it's AM or PM
-		// AND make AM or PM all caps or all lowercase
 
 	// the time in our clicker ...
 		// needs to report back the hour
 		// AND needs to show if it's AM or PM
 
-// const getSelectedDay = (eVent) => {
-// 	console.log();
-// };
+let userSelectedDay;
+let userSelectedTime;
+let chosenTimeAndDate;
+
+
+const getSelectedDay = () => {
+
+	userSelectedDay = moment(picker._d).format("dddd, MMMM DD YYYY");
+
+	return TimeAndDate(userSelectedDay, userSelectedTime);
+};
 
 const getSelectedTime = (event) => {
 	// uses dropDown time picker ...
-	console.log("time selection", event);
-			if (event.currentTarget.nodeName === "UL") {
-
-				
-				}
-
-		// .. returns selected time
+	if (event.currentTarget.nodeName === "UL") {
+		userSelectedTime = event.target.id;
+		}
+	return TimeAndDate(userSelectedDay, userSelectedTime);
 };
 
-module.exports = {getCurrentTime, getSelectedTime};
+const TimeAndDate = (date, time) => {
+	if (date != undefined && time != undefined) {
+		return date + " " + time;
+	} 
+};
+
+module.exports = {getCurrentTime, getSelectedTime, getSelectedDay};
