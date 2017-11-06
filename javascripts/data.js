@@ -1,6 +1,8 @@
 "use strict";
 
 const dom = require('./dom'); 
+const attractionsJS = require('./attractions');
+const moment = require('../lib/node_modules/moment/moment.js');
 
 //FIREBASE
 
@@ -29,21 +31,35 @@ const retrieveKeys = () => {
         return getAreas();
     }).then((areas) => {
         dom.domStringAreas(areas);
+        return getAttractionsWithMaintenanceTickets();
+    }).then((attractions) => {
+        updateFixedAttractions(attractions); 
     }).catch((error) => {
         console.log(error); 
     });
 };
 
+const updateFixedAttractions = (attractions) => {
+    let fixedAttractions = attractionsJS.findFixedAttractions(attractions, moment());
+    fixedAttractions.forEach((fixedAttraction) => {
+        updateFixedAttraction(fixedAttraction).then((result) => {
+            console.log(result);
+        }).catch((error) => {
+            console.log(error); 
+        });
+    });
+};
+
+
+
 //PROMISES 
 
 const getAttractionsByAreaId = (areaId) => {
-    let attractions = []; 
     return new Promise((resolve, reject) => {
         $.ajax(`${firebaseKey.databaseURL}/attractions.json?orderBy="area_id"&equalTo=${areaId}`).then((fbAttractions) => { 
             if (fbAttractions !== null) {
-                attractions = fbAttractions; 
+                resolve(fbAttractions); 
             }
-            resolve(attractions); 
         }).catch((err) => {
             reject(err); 
         });
@@ -51,13 +67,51 @@ const getAttractionsByAreaId = (areaId) => {
 };
 
 const getAttractionsByType = (typeId) => {
-    let attractions = []; 
     return new Promise((resolve, reject) => {
         $.ajax(`${firebaseKey.databaseURL}/attractions.json?orderBy="type_id"&equalTo=${typeId}`).then((fbAttractions) => { 
             if (fbAttractions !== null) {
-                attractions = fbAttractions; 
+                resolve(fbAttractions);
             }
-            resolve(attractions); 
+        }).catch((err) => {
+            reject(err); 
+        });
+    });
+};
+
+const getAttractionById = (attractionId) => {
+    return new Promise((resolve, reject) => {
+        $.ajax(`${firebaseKey.databaseURL}/attractions.json?orderBy="id"&equalTo=${attractionId}`).then((fbAttractions) => { 
+            if (fbAttractions !== null) {
+                resolve(fbAttractions);
+            }
+        }).catch((err) => {
+            reject(err); 
+        });
+    });   
+};
+
+const getAttractionsWithMaintenanceTickets = () => {
+    let attractions = []; 
+    return new Promise((resolve, reject) => {
+        getAttractions().then((fbAttractions) => {
+            attractions = fbAttractions; 
+            return getMaintTickets(); 
+        }).then((tickets) => {
+            attractions.forEach((attraction) => {
+                tickets.forEach((ticket) => {
+                    if (attraction.id == ticket.attraction_id) {
+                        if (!attraction.maintenance) {
+                            attraction.maintenance = [];
+                        }
+                        let maintObj = {}; 
+                        maintObj.maintenance_date = ticket.maintenance_date;
+                        maintObj.maintenance_duration_hours = ticket.maintenance_duration_hours;
+                        attraction.maintenance.push(maintObj);
+                        attractionsJS.sortMaintenance(attraction); 
+                    }
+                resolve(attractions);
+                });
+            });
         }).catch((err) => {
             reject(err); 
         });
@@ -65,13 +119,25 @@ const getAttractionsByType = (typeId) => {
 };
 
 const getAttractions = () => {
-    let attractions = [];  
+    let attractions = []; 
     return new Promise((resolve, reject) => {
-        $.ajax(`${firebaseKey.databaseURL}/attractions.json?`).then((fbAttractions) => { 
+        $.ajax(`${firebaseKey.databaseURL}/attractions.json`).then((fbAttractions) => { 
             if (fbAttractions !== null) {
-                attractions = fbAttractions; 
-            }
-            resolve(attractions); 
+                resolve(fbAttractions) ;
+            }         
+        }).catch((err) => {
+            console.log(err);
+        });
+    }); 
+}; 
+
+
+const getMaintTickets = () => {
+    return new Promise((resolve, reject) => {
+        $.ajax(`${firebaseKey.databaseURL}/maintenance_tickets.json`).then((fbTickets) => { 
+            if (fbTickets !== null) {
+                resolve(fbTickets); 
+            } 
         }).catch((err) => {
             reject(err); 
         });
@@ -79,13 +145,11 @@ const getAttractions = () => {
 };
 
 const getAttractionTypes = () => {
-    let attractionTypes = []; 
     return new Promise((resolve, reject) => {
-        $.ajax(`${firebaseKey.databaseURL}/attraction_types.json?`).then((fbAttractionTypes) => { 
+        $.ajax(`${firebaseKey.databaseURL}/attraction_types.json`).then((fbAttractionTypes) => { 
             if (fbAttractionTypes !== null) {
-                attractionTypes = fbAttractionTypes;
+                resolve(fbAttractionTypes);
             }
-            resolve(attractionTypes); 
         }).catch((err) => {
             reject(err); 
         });
@@ -93,14 +157,11 @@ const getAttractionTypes = () => {
 };
 
 const getAreas = () => {
-    let areas = []; 
-    let key = ''; 
     return new Promise((resolve, reject) => {
         $.ajax(`${firebaseKey.databaseURL}/areas.json`).then((fbAreas) => { 
             if (fbAreas !== null) {
-                areas = fbAreas;
+                resolve(fbAreas);
             }
-            resolve(areas); 
         }).catch((err) => {
             reject(err); 
         });
@@ -108,13 +169,11 @@ const getAreas = () => {
 };
 
 const getParkInfo = () => {
-    let info = []; 
     return new Promise((resolve, reject) => {
         $.ajax(`${firebaseKey.databaseURL}/park-info.json`).then((fbInfo) => { 
             if (fbInfo !== null) {
-                info = fbInfo; 
+                resolve(fbInfo);
             }
-            resolve(info); 
         }).catch((err) => {
             reject(err); 
         });
@@ -144,6 +203,26 @@ const getAttractionsWithTypeByAreaId = (areaId) => {
     });
 };
 
+const updateFixedAttraction = (fixedAttraction) => {
+    let id = fixedAttraction.id; 
+    return new Promise((resolve, reject) => {
+        getAttractionById(id).then((attraction) => {
+            let key = Object.keys(attraction)[0]; 
+            attraction[key].out_of_order = false; 
+            $.ajax({
+                method: "PUT",
+                url: `${firebaseKey.databaseURL}/attractions/${key}.json`,
+                data: JSON.stringify(attraction[key])
+            }).then((edit) => {
+                resolve(edit); 
+            }).catch((err) => {
+                reject(err); 
+            });
+        });
+    });
+};
+
+
 
 
 module.exports = {
@@ -152,7 +231,9 @@ module.exports = {
     getAttractionsByType,
     getAttractionTypes,
     getAttractionsWithTypeByAreaId,
+    getAttractionsWithMaintenanceTickets,
+    updateFixedAttraction,
     getAreas,
     getParkInfo,
-	retrieveKeys
+    retrieveKeys,
 };

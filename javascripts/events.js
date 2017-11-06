@@ -3,6 +3,7 @@
 const data = require("./data");
 const dom = require("./dom");
 const time = require("./time");
+const attractionsJS = require('./attractions'); 
 
 // let parkMash = data.getParkMash();
 
@@ -64,6 +65,19 @@ const clickArea = () => {
 	//dom.domStringDetails("area", parkMash, areaId);
 };
 
+
+const testFunction = () => {
+	$("#searchBox").keypress(function (e) {
+		let keyCode = e.keyCode || e.which; 
+		if (keyCode === 116) {
+			data.getAttractionsWithMaintenanceTickets().then((attractions) => {
+				attractionsJS.getOpenAttractions(attractions, "Wed Nov 08 2017 19:35:00 GMT-0500 (CDT)"); //attraction id 43; 
+			});
+		}
+	}); 
+};
+
 module.exports = {
-	pressEnter
+	pressEnter, 
+	testFunction
 };
