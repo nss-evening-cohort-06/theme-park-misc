@@ -12,6 +12,9 @@ const sortMaintenance = (maintArr) => {
     }
 }; 
 
+//takes attractions with maint object and a time
+//determines if the first mainteance ticket has occured at the given time for attractions having out_of_order = true
+//returns a list of attractions having out_of_order = true that need to be updated to out_of_order = false
 
 const findFixedAttractions = (attractionsWithMaint, time) => {
     let brokenAttractions = attractionsWithMaint.filter((attraction) => {
@@ -27,6 +30,9 @@ const findFixedAttractions = (attractionsWithMaint, time) => {
     return fixedAttractions; 
 };
 
+//takes attractions with maint object (or just attractions w/o maint obj)
+//filters out attractions with out_of_order = true
+//returns attraction with out_of_order = true OR no out_of_order key
 
 const filterOutOfOrder = (attractionsWithMaint) => {
     let inOrderAttractions = attractionsWithMaint.filter((attraction) => {
@@ -35,6 +41,9 @@ const filterOutOfOrder = (attractionsWithMaint) => {
     return inOrderAttractions; 
 };
 
+//takes attractions with maint object and a time
+//filters out attractions under maintenance at the given time
+//returns a list of attraction not under maintenance at the given time
 
 const filterUnderMaintenance = (attractionsWithMaint, time) => {
     let comparisonTime = moment(time).format('x'); 
@@ -56,9 +65,14 @@ const filterUnderMaintenance = (attractionsWithMaint, time) => {
     return openAttractions;
 }; 
 
+//Takes attractions with maint object and a time
+//Calls fixed attractions to find any attractions that have been fixed at the given time
+//Using the fixed attractions result, updates the attraction with maint list for attractions that need out_of_order to be false at the given time
+//Filters out all out of order attractions
+//Filters out all attractions under maintenance at the given time
+//Returns open attractions at the given time 
 
 const getOpenAttractions = (attractionsWithMaint, time) => {
-    console.log("att with maint", attractionsWithMaint);
     let fixedAttractions = findFixedAttractions(attractionsWithMaint, time);  
     fixedAttractions.forEach((fixedAttraction) => {
         attractionsWithMaint.forEach((attraction) => {
@@ -69,17 +83,8 @@ const getOpenAttractions = (attractionsWithMaint, time) => {
     }); 
     let inOrderAttractions = filterOutOfOrder(attractionsWithMaint);
     let openAttractions = filterUnderMaintenance(inOrderAttractions, time);
-    console.log("fixed attractions", fixedAttractions);
-    console.log("attractions after fixed", attractionsWithMaint);
-    console.log("in order attractions", inOrderAttractions);
-    console.log("open attractions", openAttractions);
     return openAttractions;
 }; 
-
-
-
-
-
 
 module.exports = {
     sortMaintenance,
