@@ -222,6 +222,7 @@ const updateFixedAttraction = (fixedAttraction) => {
     });
 };
 
+
 module.exports = {
     getAttractions,
     getAttractionsByAreaId,

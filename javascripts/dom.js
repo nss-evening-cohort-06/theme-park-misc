@@ -32,8 +32,7 @@ const domStringDetails = (attractionsArray) => {
 			domStrang +=   `<div class="col-sm-12">`;
 			// if(detailType === "area"){
 				// Area info with attraction name and type will display here...
-				domStrang +=   `<p><a href="#"><strong>data-area-id="${attractionsArray[i].name}</strong></a> (${attractionsArray[i].type})</p>`;
-			
+				domStrang +=   `<p><a href="#"><strong>data-area-id="${attractionsArray[i].name}</strong></a> (${attractionsArray[i].attractionType})</p>`;
 				// domStrang +=   `<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">`;
 				// domStrang +=     `<div class="panel panel-default">`;
 				// domStrang +=       `<div class="panel-heading" role="tab" id="headingOne">`;

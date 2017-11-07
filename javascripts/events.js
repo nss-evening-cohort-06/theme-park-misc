@@ -58,7 +58,7 @@ const clickArea = () => {
 		$(document).on("click", ".thumbnail", (function(e){
 			let areaId = $(this).data("area-id");
 			console.log("areaId", areaId);
-			data.getAttractionsByAreaId(areaId).then((attractions) => {
+			data.getAttractionsWithTypeByAreaId(areaId).then((attractions) => {
 				console.log("attractions", attractions);
 				dom.domStringDetails(attractions);
 			}).catch((err) => {
