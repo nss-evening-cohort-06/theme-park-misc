@@ -4,6 +4,7 @@ const data = require("./data");
 const dom = require("./dom");
 const time = require("./time");
 const attractionsJS = require('./attractions'); 
+const moment = require('../lib/node_modules/moment/moment.js');
 
 const pressEnter = () => {
 	$("#searchBox").keypress(function (e) {
@@ -58,9 +59,11 @@ const clickArea = () => {
 		$(document).on("click", ".thumbnail", (function(e){
 			let areaId = $(this).data("area-id");
 			console.log("areaId", areaId);
-			data.getAttractionsWithTypeByAreaId(areaId).then((attractions) => {
+			data.getAttractionsWithTypeAndMaintenanceTicketsbyAreaId(areaId).then((attractions) => {
 				console.log("attractions", attractions);
-				dom.domStringDetails(attractions);
+				let openAttractions = attractionsJS.getOpenAttractions(attractions);
+				console.log("open attractions", openAttractions);
+				dom.domStringDetails(openAttractions, moment());
 			}).catch((err) => {
 				console.log(err);
 			});
