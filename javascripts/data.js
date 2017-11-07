@@ -31,7 +31,7 @@ const retrieveKeys = () => {
         return getAreas();
     }).then((areas) => {
         dom.domStringAreas(areas);
-        return getAttractionsWithMaintenanceTickets();
+        return getAttractionsWithTypeAndMaintenanceTickets();
     }).then((attractions) => {
         updateFixedAttractions(attractions); 
     }).catch((error) => {
@@ -55,10 +55,14 @@ const updateFixedAttractions = (attractions) => {
 //PROMISES 
 
 const getAttractionsByAreaId = (areaId) => {
+    let attractions = []; 
     return new Promise((resolve, reject) => {
         $.ajax(`${firebaseKey.databaseURL}/attractions.json?orderBy="area_id"&equalTo=${areaId}`).then((fbAttractions) => { 
             if (fbAttractions !== null) {
-                resolve(fbAttractions); 
+                Object.keys(fbAttractions).forEach((key) => {
+                    attractions.push(fbAttractions[key]);
+                }); 
+                resolve(attractions); 
             }
         }).catch((err) => {
             reject(err); 
@@ -90,10 +94,10 @@ const getAttractionById = (attractionId) => {
     });   
 };
 
-const getAttractionsWithMaintenanceTickets = () => {
+const getAttractionsWithTypeAndMaintenanceTickets = () => {
     let attractions = []; 
     return new Promise((resolve, reject) => {
-        getAttractions().then((fbAttractions) => {
+        getAttractionsWithType().then((fbAttractions) => {
             attractions = fbAttractions; 
             return getMaintTickets(); 
         }).then((tickets) => {
@@ -203,6 +207,30 @@ const getAttractionsWithTypeByAreaId = (areaId) => {
     });
 };
 
+
+const getAttractionsWithType = () => {
+    let attractions = []; 
+    return new Promise ((resolve, reject) => {
+        getAttractions().then((_attractions) => {
+            attractions = _attractions; 
+            return getAttractionTypes();
+        }).then((types) => {
+            let attractionsWithType = attractions.map((attraction) => {
+                let obj = Object.assign(attraction); 
+                types.forEach((type) => {
+                    if (attraction.type_id == type.id) {
+                        obj.attractionType = type.name;
+                    }
+                });
+                return obj;
+            });
+            resolve(attractionsWithType);
+        }).catch((err) => {
+            reject(err);
+        });
+    });
+};
+
 const updateFixedAttraction = (fixedAttraction) => {
     let id = fixedAttraction.id; 
     return new Promise((resolve, reject) => {
@@ -223,13 +251,42 @@ const updateFixedAttraction = (fixedAttraction) => {
 };
 
 
+const getAttractionsWithTypeAndMaintenanceTicketsbyAreaId = (areaId) => {
+    let attractions = []; 
+    return new Promise((resolve, reject) => {
+        getAttractionsWithTypeByAreaId(areaId).then((fbAttractions) => {
+            attractions = fbAttractions; 
+            return getMaintTickets(); 
+        }).then((tickets) => {
+            attractions.forEach((attraction) => {
+                tickets.forEach((ticket) => {
+                    if (attraction.id == ticket.attraction_id) {
+                        if (!attraction.maintenance) {
+                            attraction.maintenance = [];
+                        }
+                        let maintObj = {}; 
+                        maintObj.maintenance_date = ticket.maintenance_date;
+                        maintObj.maintenance_duration_hours = ticket.maintenance_duration_hours;
+                        attraction.maintenance.push(maintObj);
+                        attractionsJS.sortMaintenance(attraction); 
+                    }
+                resolve(attractions);
+                });
+            });
+        }).catch((err) => {
+            reject(err); 
+        });
+    });
+};
+
+
 module.exports = {
     getAttractions,
     getAttractionsByAreaId,
     getAttractionsByType,
     getAttractionTypes,
     getAttractionsWithTypeByAreaId,
-    getAttractionsWithMaintenanceTickets,
+    getAttractionsWithTypeAndMaintenanceTicketsbyAreaId,
     updateFixedAttraction,
     getAreas,
     getParkInfo,

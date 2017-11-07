@@ -84,8 +84,8 @@ const testFunction = () => {
 	$("#searchBox").keypress(function (e) {
 		let keyCode = e.keyCode || e.which; 
 		if (keyCode === 116) {
-			data.getAttractionsWithMaintenanceTickets().then((attractions) => {
-				attractionsJS.getOpenAttractions(attractions, "Wed Nov 08 2017 19:35:00 GMT-0500 (CDT)"); //attraction id 43; 
+			data.getAttractionsWithTypeAndMaintenanceTicketsbyAreaId(1).then((attractions) => {
+				console.log(attractions); 
 			});
 		}
 	}); 
