@@ -3,6 +3,7 @@
 const moment = require('../lib/node_modules/moment/moment.js');
 
 //sorts maintenance times in the array so index 0 will always be the first date of maintenance
+//this is used in the getAttractionsWithMaitenanceTickets promise
 
 const sortMaintenance = (maintArr) => {
     if (maintArr.length > 0) {
@@ -32,7 +33,7 @@ const findFixedAttractions = (attractionsWithMaint, time) => {
 
 //takes attractions with maint object (or just attractions w/o maint obj)
 //filters out attractions with out_of_order = true
-//returns attraction with out_of_order = true OR no out_of_order key
+//returns attraction with out_of_order = false OR no out_of_order key
 
 const filterOutOfOrder = (attractionsWithMaint) => {
     let inOrderAttractions = attractionsWithMaint.filter((attraction) => {
@@ -92,3 +93,5 @@ module.exports = {
     filterUnderMaintenance,
     getOpenAttractions
 };
+
+
