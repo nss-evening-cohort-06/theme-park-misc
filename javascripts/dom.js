@@ -1,5 +1,7 @@
 "use strict";
 
+const moment = require('../lib/node_modules/moment/moment.js');
+
 //accepts an arrays of area name and its area ID to makes area boxes
 const domStringAreas = (areaCollection) => {
 	let domStringAreas = "";
@@ -10,8 +12,18 @@ const domStringAreas = (areaCollection) => {
     	domStringAreas +=		`<h3 class="areaName">${areaCollection[i].name}</h3>`;
     	domStringAreas +=	`</div>`;
     	domStringAreas +=`</a></div>`;
-
 	}
+		domStringAreas +=`<div class="container">`;
+		domStringAreas +=  `<div class="row">`;
+		domStringAreas +=    `<div class="col-sm-12">`;
+		domStringAreas +=      `<footer class="footer">`;
+    	domStringAreas +=        `<div class="container">`;
+    	domStringAreas +=          `<p class="text-muted">&copy; ${moment().format('YYYY')}, ${moment().format("MMMM Do")}</p>`;
+    	domStringAreas +=        `</div>`;
+    	domStringAreas +=      `</footer>`;
+    	domStringAreas +=    `</div>`;
+    	domStringAreas +=  `</div>`;
+    	domStringAreas +=`</div>`;
 	printAreasToDom(domStringAreas);
 	toggleMeElmo();
 };
