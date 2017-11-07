@@ -1,6 +1,8 @@
 "use strict";
 
-const dom = require('./dom'); 
+const dom = require('./dom');
+const moment = require("../lib/node_modules/moment/moment.js");
+
 
 //FIREBASE
 
@@ -144,6 +146,58 @@ const getAttractionsWithTypeByAreaId = (areaId) => {
     });
 };
 
+// ON PAGE LOAD ...
+const getAttractionsWithAreasByTime = () => {
+  // an array of attractions with times that have 
+  let attractions = [];
+  // get all attractions,
+  return new Promise ((resolve, reject) => {
+    getAttractions().then((_attractions) => {
+      attractions = _attractions;
+    }).then(() => { // this will at some point need to accept a time to pass along
+    // if any attraction has a time ...
+        let theseAttractions = attractions.filter((attraction) => {
+
+        if (attraction.times) {
+            return true;
+        } // with times
+      }); //filter
+
+      console.log("array of attraction times?", theseAttractions);
+
+      theseAttractions.forEach((attraction) => {
+
+        attraction.times.forEach((time) => {
+            console.log("each time", Object.keys(time).length);
+            attraction.times.push(moment(time, 'h:A').format("hA"));
+            
+             resolve(theseAttractions);
+   
+        });
+      });
+             // and if that time formatted === the selected time formatted   
+            // at this point I get the array of 26 items with a time
+    // resolve(theseAttractions);
+
+   }); // 2nd then
+  }); // promise 
+};
+
+// what i have left to do:
+
+  // format Times to be similar to our times
+  // make sure Times round up to the hour, keep AM/PM
+
+  // only get attractions with times
+
+    // narrow it down even more ...
+      // ... to only ones with times matching the input
+
+    // narrow it down even more ...
+      // ... to be sure none are out of order
+
+    // attach the area to each attraction by area_id
+    // send the results to domStringDetails
 
 
 module.exports = {
@@ -152,6 +206,7 @@ module.exports = {
     getAttractionsByType,
     getAttractionTypes,
     getAttractionsWithTypeByAreaId,
+    getAttractionsWithAreasByTime,
     getAreas,
     getParkInfo,
     retrieveKeys

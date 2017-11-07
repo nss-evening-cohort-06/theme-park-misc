@@ -59,6 +59,8 @@ const showAttractionsByTime = () => {
 		$("#datepicker").blur(() => {
 			userSelectedDateAndTime = time.getSelectedDay();
 			if (userSelectedDateAndTime != undefined) {
+				console.log("I just need all things that have a time tied to it", data.getAttractionsWithAreasByTime());
+				// do something with the time and date
 				console.log("user elected goodies", userSelectedDateAndTime);				
 			}
 
@@ -67,13 +69,22 @@ const showAttractionsByTime = () => {
 		$(".dropdown-menu").click((e) => {
 			userSelectedDateAndTime = time.getSelectedTime(e);
 			if (userSelectedDateAndTime != undefined) {
+				console.log("I just need all things that have a time tied to it", data.getAttractionsWithAreasByTime());
+				// do something with the time and date
 				console.log("user elected goodies", userSelectedDateAndTime);				
 			}
 
  });
 		// ON PAGE LOAD ...
+			// get all attractions,
+			// if any attraction has a time
+			// and if that time === the selected time
+				// save that to a new array
+					// and send that out to domStringDetails("time", )
 		// ... filter attractions based on the time the user clicked
 };
+
+
 
 const init = () => {
 	showAttractionsByTime();
