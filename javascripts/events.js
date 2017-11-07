@@ -3,8 +3,7 @@
 const data = require("./data");
 const dom = require("./dom");
 const time = require("./time");
-
-// let parkMash = data.getParkMash();
+const attractionsJS = require('./attractions'); 
 
 const pressEnter = () => {
 	$("#searchBox").keypress(function (e) {
@@ -29,7 +28,6 @@ const matchingAttractions = (searchInputValue) => {
 				matchingIds.push(attraction.area_id); 
 			}
 		});
-		console.log(matchingIds); 
 		highlightAreas(matchingIds);
 	}); 
 };
@@ -81,7 +79,21 @@ const clickArea = () => {
 // };
 
 
+//***use this to test functions requiring ajax calls - just press "t" in the search box and this with execute**** 
+const testFunction = () => {
+	$("#searchBox").keypress(function (e) {
+		let keyCode = e.keyCode || e.which; 
+		if (keyCode === 116) {
+			data.getAttractionsWithMaintenanceTickets().then((attractions) => {
+				attractionsJS.getOpenAttractions(attractions, "Wed Nov 08 2017 19:35:00 GMT-0500 (CDT)"); //attraction id 43; 
+			});
+		}
+	}); 
+};
 
+module.exports = {
+	pressEnter, 
+	testFunction,
+	clickArea
+};
 
-
-module.exports = {pressEnter, clickArea};
