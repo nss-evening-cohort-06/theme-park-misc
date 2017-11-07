@@ -5,6 +5,6 @@ const time = require("./time");
 const dom = require('./dom');
 const events = require('./events'); 
 
-
-data.retrieveKeys();
+data.retrieveKeys(); 
+events.testFunction();
 events.init();

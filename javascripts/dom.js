@@ -1,5 +1,7 @@
 "use strict";
 
+const moment = require('../lib/node_modules/moment/moment.js');
+
 //accepts an arrays of area name and its area ID to makes area boxes
 const domStringAreas = (areaCollection) => {
 	let domStringAreas = "";
@@ -10,8 +12,18 @@ const domStringAreas = (areaCollection) => {
     	domStringAreas +=		`<h3 class="areaName">${areaCollection[i].name}</h3>`;
     	domStringAreas +=	`</div>`;
     	domStringAreas +=`</a></div>`;
-
 	}
+		domStringAreas +=`<div class="container">`;
+		domStringAreas +=  `<div class="row">`;
+		domStringAreas +=    `<div class="col-sm-12">`;
+		domStringAreas +=      `<footer class="footer">`;
+    	domStringAreas +=        `<div class="container">`;
+    	domStringAreas +=          `<p class="text-muted">&copy; ${moment().format('YYYY')}, ${moment().format("MMMM Do")}</p>`;
+    	domStringAreas +=        `</div>`;
+    	domStringAreas +=      `</footer>`;
+    	domStringAreas +=    `</div>`;
+    	domStringAreas +=  `</div>`;
+    	domStringAreas +=`</div>`;
 	printAreasToDom(domStringAreas);
 	toggleMeElmo();
 };
@@ -40,12 +52,30 @@ const domStringDetails = (detailType, detailValue) => {
 
 			if(detailType === "area"){
 				// Area info with attraction name and type will display here...
-				// You may/may not have to change the dot notation, just an FYI
 				domStrang +=   `<p><strong>${detailsArray[i].attraction.name}</strong> (${detailsArray[i].attraction_types.name})</p>`;
+			
+				domStrang +=   `<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">`;
+				domStrang +=     `<div class="panel panel-default">`;
+				domStrang +=       `<div class="panel-heading" role="tab" id="headingOne">`;
+				domStrang +=         `<h4 class="panel-title">`;
+				                       // You may/may not have to change the dot notation, just an FYI
+				domStrang +=           `${detailsArray[i].attraction.name} (${detailsArray[i].attraction_types.name})`;
+				domStrang +=         `</h4>`;
+				domStrang +=       `</div>`;
+				domStrang +=       `<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">`;
+				domStrang +=         `<div class="panel-body">`;
+									   // You may/may not have to change the dot notation, just an FYI
+				domStrang +=           `<p><strong>Description:</strong> ${detailsArray[i].areas.description}</p>`;
+				domStrang +=           `<p><strong>Times:</strong> ${detailsArray[i].attractions.times}</p>`;
+				domStrang +=         `</div>`;
+				domStrang +=       `</div>`;
+				domStrang +=     `</div>`;
+				domStrang +=   `</div>`;
+
 			} else {
 				// Time will display here...
 				// You may/may not have to change the dot notation, just an FYI
-				domStrang +=   `<p><strong>${detailsArray[i].attraction.name}</strong> ${detailsArray[i].areas.name}</p>`;
+				domStrang +=   `<p><strong>${detailsArray[i].attractions.name}</strong> ${detailsArray[i].areas.name}</p>`;
 			}
 
 			domStrang +=   `</div>`;

@@ -3,10 +3,7 @@
 const data = require("./data");
 // const dom = require("./dom");
 const time = require("./time");
-
-
-// // let parkMash = data.getParkMash();
-
+const attractionsJS = require('./attractions'); 
 
 const pressEnter = () => {
 	$("#searchBox").keypress(function (e) {
@@ -31,7 +28,6 @@ const matchingAttractions = (searchInputValue) => {
 				matchingIds.push(attraction.area_id); 
 			}
 		});
-		console.log(matchingIds); 
 		highlightAreas(matchingIds);
 	}); 
 };
@@ -89,6 +85,19 @@ const showAttractionsByTime = () => {
 const init = () => {
 	showAttractionsByTime();
 	pressEnter();
+	pressEnter();
 };
 
-module.exports = {init};
+//***use this to test functions requiring ajax calls - just press "t" in the search box and this with execute**** 
+const testFunction = () => {
+	$("#searchBox").keypress(function (e) {
+		let keyCode = e.keyCode || e.which; 
+		if (keyCode === 116) {
+			data.getAttractionsWithTypeAndMaintenanceTicketsbyAreaId(1).then((attractions) => {
+				console.log(attractions); 
+			});
+		}
+	}); 
+};
+
+module.exports = {init, testFunction};
