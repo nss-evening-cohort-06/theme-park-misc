@@ -15,57 +15,56 @@ const domStringAreas = (areaCollection) => {
 	printAreasToDom(domStringAreas);
 };
 
-const domStringDetails = (detailType, detailValue) => {
+const domStringDetails = (attractionsArray) => {
 	// data.getAttractionByAreaId(detailValue);
 
 	// create an array for the results of ^^  which holds the attractions and area array
-	let detailsArray = [];
 	//detailType = either a string of "area" or "time" ...
 		// ... which we'll use for if statements on what to display
 
 	// loops on that array you just created for a dombuilder
-		let domStrang = "";
-		for (let i = 0; i < detailsArray.length; i++) {
+	//I need to push the attractions into an array 
 
+		let domStrang = "";
+		for (let i = 0; i < attractionsArray.length; i++) {
+				console.log("attractions array", attractionsArray[i]);
 			domStrang += `<div class="row">`;
 			domStrang +=   `<div class="col-sm-12">`;
-
-			if(detailType === "area"){
+			// if(detailType === "area"){
 				// Area info with attraction name and type will display here...
-				domStrang +=   `<p><strong>${detailsArray[i].attraction.name}</strong> (${detailsArray[i].attraction_types.name})</p>`;
+				domStrang +=   `<p><a href="#"><strong>data-area-id="${attractionsArray[i].name}</strong></a> (${attractionsArray[i].type})</p>`;
 			
-				domStrang +=   `<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">`;
-				domStrang +=     `<div class="panel panel-default">`;
-				domStrang +=       `<div class="panel-heading" role="tab" id="headingOne">`;
-				domStrang +=         `<h4 class="panel-title">`;
-				                       // You may/may not have to change the dot notation, just an FYI
-				domStrang +=           `${detailsArray[i].attraction.name} (${detailsArray[i].attraction_types.name})`;
-				domStrang +=         `</h4>`;
-				domStrang +=       `</div>`;
-				domStrang +=       `<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">`;
-				domStrang +=         `<div class="panel-body">`;
-									   // You may/may not have to change the dot notation, just an FYI
-				domStrang +=           `<p><strong>Description:</strong> ${detailsArray[i].areas.description}</p>`;
-				domStrang +=           `<p><strong>Times:</strong> ${detailsArray[i].attractions.times}</p>`;
-				domStrang +=         `</div>`;
-				domStrang +=       `</div>`;
-				domStrang +=     `</div>`;
-				domStrang +=   `</div>`;
+				// domStrang +=   `<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">`;
+				// domStrang +=     `<div class="panel panel-default">`;
+				// domStrang +=       `<div class="panel-heading" role="tab" id="headingOne">`;
+				// domStrang +=         `<h4 class="panel-title">`;
+				//                        // You may/may not have to change the dot notation, just an FYI
+				// domStrang +=           `${attractions[i].attractions.name} (${attractions[i].attraction_types.name})`;
+				// domStrang +=         `</h4>`;
+				// domStrang +=       `</div>`;
+				// domStrang +=       `<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">`;
+				// domStrang +=         `<div class="panel-body">`;
+				// 					   // You may/may not have to change the dot notation, just an FYI
+				// domStrang +=           `<p><strong>Description:</strong> ${attractions[i].areas.description}</p>`;
+				// domStrang +=           `<p><strong>Times:</strong> ${attractions[i].attractions.times}</p>`;
+				// domStrang +=         `</div>`;
+				// domStrang +=       `</div>`;
+				// domStrang +=     `</div>`;
+				// domStrang +=   `</div>`;
 
-			} else {
+			// } else {
 				// Time will display here...
 				// You may/may not have to change the dot notation, just an FYI
-				domStrang +=   `<p><strong>${detailsArray[i].attractions.name}</strong> ${detailsArray[i].areas.name}</p>`;
-			}
+				// domStrang +=   `<p><strong>${attractions[i].attractions.name}</strong> ${attractions[i].areas.name}</p>`;
+			// }
 
 			domStrang +=   `</div>`;
 			domStrang += `</div>`;
-
-		console.log(domStrang);
+			domStrang += `</div>`;
 		}
 
-	//clearDom();
-	//printDetailsToDom();
+	// clearDom();
+	printDetailsToDom(domStrang);
 };
 
 const clearDom = (divName) => {
@@ -78,4 +77,8 @@ const printAreasToDom = (strang) => {
 	$("#areaHolder").append(strang);
 };
 
-module.exports = {domStringAreas};
+const printDetailsToDom = (strang) => {
+	$('#sidebar-wrapper').append(strang);
+};
+
+module.exports = {domStringAreas, domStringDetails};

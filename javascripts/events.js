@@ -55,24 +55,33 @@ const showAttractionsByTime = (chosenTime) => {
 		// ... 
 };
 
-
 const clickArea = () => {
-	//do something to get the clicked thumbnail data-area-id (e.)
-	//getAttractionsByAreaId(pass area id from above)
-	// $('document').on("click", '.thumbnails'), (e) => {
-	// 	data.getAttractionsByAreaId(areaIdFromAbove).then((attraction) => {
-	// 		dom.printToSidebar(filteredAttractions);
-	// 	}).catch((err) => {
-	// 		console.log(err)
-	// 	});
-	// };
-
-	// when user clicks on a particular area ...
-		// ... then a list of attracitons in that area is populated on the sidebar
-		// ... AND finds the areaId of the clicked area ...
-			// ... sends values to domStringDetails
-	//dom.domStringDetails("area", parkMash, areaId);
+	$(document).ready(() => {
+		$(document).on("click", ".thumbnail", (function(e){
+			let areaId = $(this).data("area-id");
+			console.log("areaId", areaId);
+			data.getAttractionsByAreaId(areaId).then((attractions) => {
+				console.log("attractions", attractions);
+				dom.domStringDetails(attractions);
+			}).catch((err) => {
+				console.log(err);
+			});
+			console.log("listening for click on .thumbnail");
+		}));
+	});
 };
+
+
+// 	//do something to get the clicked thumbnail data-area-id (e.)
+// 	// when user clicks on a particular area ...
+// 		// ... then a list of attracitons in that area is populated on the sidebar
+// 		// ... AND finds the areaId of the clicked area ...
+// 			// ... sends values to domStringDetails
+// 	//dom.domStringDetails("area", parkMash, areaId);
+// };
+
+
+
 
 
 module.exports = {pressEnter, clickArea};
