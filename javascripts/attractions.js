@@ -98,8 +98,6 @@ const applyUpsideDowntoAttractions = (attractions) => {
             let regexTerm = RegExp(`\\b(${term})\\b`, 'gi');
             if (regexTerm.test(attraction.description)) {
                 attraction.isUpsideDown = true;
-                let result = regexTerm.exec(attraction.description);
-                console.log(attraction.area_id, attraction.name, result); 
                 return true; 
             }
         });

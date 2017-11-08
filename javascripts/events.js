@@ -100,6 +100,6 @@ const testFunction = () => {
 module.exports = {
 	pressEnter, 
 	testFunction,
-	clickArea,
+	clickArea
 };
 
