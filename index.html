@@ -2,8 +2,8 @@
 <html>
 <head>
 	<title>Theme Park Map</title>
-		<link rel="stylesheet" type="text/css" href="./lib/node_modules/bootstrap/dist/css/bootstrap.css">
-  		<link rel="stylesheet" type="text/css" href="./styles/main.css">
+		<link rel="stylesheet" type="text/css" href="./lib/node_modules/bootstrap/dist/css/bootstrap.min.css">
+  	<link rel="stylesheet" type="text/css" href="./styles/main.css">
 </head>
 <body>
 
@@ -39,17 +39,25 @@
 
 
         <!-- Sidebar -->
-<div id="sidebar-wrapper">
-</div>
-<div class="container-fluid" id="areaHolder">
-</div>
+
+<div class="row">
+
+  <div class="col-md-4">
+    <div id="sidebar-wrapper"></div>
+  </div>
+
+  <div class="col-md-8">
+    <div id="areaHolder"></div>
+  </div>
+
+</div><!-- end row -->
 
 
 
 
 <script src="https://www.gstatic.com/firebasejs/4.6.0/firebase.js"></script>
-<script type="text/javascript" src="./lib/node_modules/jquery/dist/jquery.js"></script>
-<script type="text/javascript" src="./lib/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+<script type="text/javascript" src="./lib/node_modules/jquery/dist/jquery.min.js"></script>
+<script type="text/javascript" src="./lib/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="./dist/app.js"></script>
 </body>
 </html>
