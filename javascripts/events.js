@@ -3,8 +3,8 @@
 const data = require("./data");
 const dom = require("./dom");
 const time = require("./time");
-
-// let parkMash = data.getParkMash();
+const attractionsJS = require('./attractions'); 
+const moment = require('../lib/node_modules/moment/moment.js');
 
 const pressEnter = () => {
 	$("#searchBox").keypress(function (e) {
@@ -29,7 +29,6 @@ const matchingAttractions = (searchInputValue) => {
 				matchingIds.push(attraction.area_id); 
 			}
 		});
-		console.log(matchingIds); 
 		highlightAreas(matchingIds);
 	}); 
 };
@@ -55,15 +54,49 @@ const showAttractionsByTime = (chosenTime) => {
 		// ... 
 };
 
-
 const clickArea = () => {
-	// when user clicks on a particular area ...
-		// ... then a list of attracitons in that area is populated on the sidebar
-		// ... AND finds the areaId of the clicked area ...
-			// ... sends values to domStringDetails
-	//dom.domStringDetails("area", parkMash, areaId);
+	$(document).ready(() => {
+		$(document).on("click", ".thumbnail", (function(e){
+			let areaId = $(this).data("area-id");
+			console.log("areaId", areaId);
+			data.getAttractionsWithTypeAndMaintenanceTicketsbyAreaId(areaId).then((attractions) => {
+				console.log("attractions", attractions);
+				let openAttractions = attractionsJS.getOpenAttractions(attractions);
+				console.log("open attractions", openAttractions);
+				dom.domStringDetails(openAttractions, moment());
+			}).catch((err) => {
+				console.log(err);
+			});
+			console.log("listening for click on .thumbnail");
+		}));
+	});
+};
+
+
+// 	//do something to get the clicked thumbnail data-area-id (e.)
+// 	// when user clicks on a particular area ...
+// 		// ... then a list of attracitons in that area is populated on the sidebar
+// 		// ... AND finds the areaId of the clicked area ...
+// 			// ... sends values to domStringDetails
+// 	//dom.domStringDetails("area", parkMash, areaId);
+// };
+
+
+//***use this to test functions requiring ajax calls - just press "t" in the search box and this with execute**** 
+const testFunction = () => {
+	$("#searchBox").keypress(function (e) {
+		let keyCode = e.keyCode || e.which; 
+		if (keyCode === 116) {
+			data.getAttractionsWithTypeAndMaintenanceTicketsbyAreaId(1).then((attractions) => {
+				console.log(attractions); 
+			});
+		}
+	}); 
 };
 
 module.exports = {
-	pressEnter
+	pressEnter, 
+	testFunction,
+	clickArea
 };
+

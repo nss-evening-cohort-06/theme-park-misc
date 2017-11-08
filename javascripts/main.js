@@ -6,4 +6,6 @@ const events = require('./events');
 
 data.retrieveKeys(); 
 events.pressEnter(); 
+events.clickArea();
+events.testFunction();
 
