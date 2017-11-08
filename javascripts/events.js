@@ -52,6 +52,8 @@ const showAttractionsByTime = (chosenTime) => {
 		// ... filter attractions based on the time the user clicked
 		// ... and send those results to dom
 		// ... 
+	// dom.domStringDetails(openAttractions, false);
+
 };
 
 const clickArea = () => {
@@ -63,7 +65,7 @@ const clickArea = () => {
 				console.log("attractions", attractions);
 				let openAttractions = attractionsJS.getOpenAttractions(attractions);
 				console.log("open attractions", openAttractions);
-				dom.domStringDetails(openAttractions, moment());
+				dom.domStringDetails(openAttractions, true);
 			}).catch((err) => {
 				console.log(err);
 			});
