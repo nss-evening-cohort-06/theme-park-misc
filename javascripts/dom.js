@@ -50,7 +50,11 @@ const domStringDetails = (attractionsArray, isArea) => {
       domStrang +=   `<div id="collapse${i}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading${i}">`;
       domStrang +=     `<div class="panel-body">`;
       domStrang +=       `<p>Description: ${attractionsArray[i].description}</p>`;
+      if (attractionsArray[i].times){
       domStrang +=       `<p>Times: ${attractionsArray[i].times}</p>`;
+      } else {
+        domStrang +=     `</div>`;
+      }
       domStrang +=     `</div>`;
       domStrang +=   `</div>`;
       domStrang += `</div>`;
