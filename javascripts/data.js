@@ -279,6 +279,7 @@ const getAttractionsWithTypeAndMaintenanceTicketsbyAreaId = (areaId) => {
     });
 };
 
+
 module.exports = {
     getAttractions,
     getAttractionsByAreaId,
