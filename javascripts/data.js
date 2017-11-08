@@ -7,6 +7,8 @@ const moment = require('../lib/node_modules/moment/moment.js');
 //FIREBASE
 
 let firebaseKey = '';
+let sortedArray = [];
+
 
 const setFirebaseKey = (key) => {
     firebaseKey = key; 
@@ -280,51 +282,62 @@ const getAttractionsWithTypeAndMaintenanceTicketsbyAreaId = (areaId) => {
 
 
 // ON PAGE LOAD ...
-const getAttractionsWithAreasByTime = () => {
-  // an array of attractions with times that have 
+const getAttractionsWithAreasByTime = (userSelectedDateAndTime) => {    // this will at some point need to accept a time to pass along
+
   let attractions = [];
-  // get all attractions,
-  return new Promise ((resolve, reject) => {
-    getAttractions().then((_attractions) => {
+
+    getAttractionsWithTypeAndMaintenanceTickets().then((_attractions) => {
       attractions = _attractions;
-    }).then(() => { // this will at some point need to accept a time to pass along
+      let availableAttractions = attractionsJS.getOpenAttractions(attractions, userSelectedDateAndTime);
     // if any attraction has a time ...
-        let theseAttractions = attractions.filter((attraction) => {
+        let attractionsWithTimes = availableAttractions.filter((attraction) => {
+            return attraction.times;
+      }); // end filter
+    // return filterByTime(attractionsWithTimes, userSelectedDateAndTime);
+    filterByTime(attractionsWithTimes, userSelectedDateAndTime);
+    }); // end 
+};
 
-        if (attraction.times) {
-            return true;
-        } // with times
-      }); //filter
 
-      console.log("array of attraction times?", theseAttractions);
+const filterByTime = (onesWithTime, userSelectedDateAndTime) => {
+    // holds matching attractions by name
+    let holdingArray = [];
 
-      theseAttractions.forEach((attraction) => {
-
+    onesWithTime.forEach((attraction) => {
         attraction.times.forEach((time) => {
-            console.log("each time", Object.keys(time).length);
-            attraction.times.push(moment(time, 'h:A').format("hA"));
-            
-             resolve(theseAttractions);
-   
+
+            if (moment(userSelectedDateAndTime, 'LLLL').startOf('hour').format("LT") === moment(time, 'h:A').startOf('hour').format("LT")) {
+                holdingArray.push(attraction);
+            } // end if for time comparison
+        }); // end onesWithTime.forEach(time)
+    });
+
+    getAreas().then((areas) => {
+        areas.forEach((area) => {
+            holdingArray.forEach((openAttractions) => {
+                    // console.log("open attractions", openAttractions);
+                if (openAttractions.area_id === area.id) {
+                    openAttractions.areaName = area.name;
+                    sortedArray.push(openAttractions);                        
+                }
+            }); // end holdingArray.forEach       
         });
-      });
+        // return sortedArray;
+ // return sortedArray;
+ }); // end filterByTime(attraction) 
 
-    // resolve(theseAttractions);
+               
+};
 
-   }); // 2nd then
-  }); // promise 
+const getAttractionsSortedByTime = () => {
+        console.log("final sortedArray on the outside", sortedArray);
+    return sortedArray;
 };
 
 // what i have left to do:
 
-    // narrow it down even more ...
-      // ... to only ones with times matching the input
-
-    // narrow it down even more ...
-      // ... to be sure none are out of order
-
-    // attach the area to each attraction by area_id
-    // send the results to domStringDetails
+    // take care of that fringe 8:55 AM case
+        // add it to anytime someone asks for 9AM
 
 module.exports = {
     getAttractions,
@@ -333,6 +346,7 @@ module.exports = {
     getAttractionTypes,
     getAttractionsWithTypeByAreaId,
     getAttractionsWithAreasByTime,
+    getAttractionsSortedByTime,
     getAttractionsWithTypeAndMaintenanceTicketsbyAreaId,
     updateFixedAttraction,
     getAreas,

@@ -99,4 +99,4 @@ const printAreasToDom = (strang) => {
 	$("#areaHolder").append(strang);
 };
 
-module.exports = {domStringAreas};
+module.exports = {domStringAreas, domStringDetails};
