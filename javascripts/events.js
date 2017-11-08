@@ -60,10 +60,9 @@ const clickArea = () => {
 			let areaId = $(this).data("area-id");
 			console.log("areaId", areaId);
 			data.getAttractionsWithTypeAndMaintenanceTicketsbyAreaId(areaId).then((attractions) => {
-				console.log("attractions", attractions);
 				let openAttractions = attractionsJS.getOpenAttractions(attractions);
-				console.log("open attractions", openAttractions);
-				dom.domStringDetails(openAttractions, moment());
+				let openWithUpsideDown = attractionsJS.applyUpsideDowntoAttractions(openAttractions);
+				dom.domStringDetails(openWithUpsideDown, moment());
 			}).catch((err) => {
 				console.log(err);
 			});
@@ -87,8 +86,9 @@ const testFunction = () => {
 	$("#searchBox").keypress(function (e) {
 		let keyCode = e.keyCode || e.which; 
 		if (keyCode === 116) {
-			data.getAttractionsWithTypeAndMaintenanceTicketsbyAreaId(1).then((attractions) => {
-				console.log(attractions); 
+			data.getAttractions().then((attractions) => {
+				let upsideDownAttractions = attractionsJS.applyUpsideDowntoAttractions(attractions); 
+				console.log(upsideDownAttractions); 
 			});
 		}
 	}); 
@@ -97,6 +97,6 @@ const testFunction = () => {
 module.exports = {
 	pressEnter, 
 	testFunction,
-	clickArea
+	clickArea,
 };
 

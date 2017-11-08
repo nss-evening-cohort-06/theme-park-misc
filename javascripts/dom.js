@@ -2,6 +2,7 @@
 
 const moment = require('../lib/node_modules/moment/moment.js');
 
+
 //accepts an arrays of area name and its area ID to makes area boxes
 const domStringAreas = (areaCollection) => {
 	let domStringAreas = "";
@@ -32,6 +33,7 @@ const domStringDetails = (attractionsArray) => {
 		let domStrang = "";
 		domStrang += `<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">`;
 		for (let i = 0; i < attractionsArray.length; i++) {
+			let upsideDownClass =  (attractionsArray[i].isUpsideDown === true) ? "upside-down" : "";
 			domStrang +=	`<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
     				<div class="panel panel-default">
       					<div class="panel-heading" role="tab" id="heading${i}">
@@ -42,7 +44,7 @@ const domStringDetails = (attractionsArray) => {
         					</h4>
       					</div>
     						<div id="collapse${i}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading${i}">
-      							<div class="panel-body">
+      							<div class="panel-body ${upsideDownClass}">
         						<p>Description: ${attractionsArray[i].description}</p>
         						<p>Times: ${attractionsArray[i].times}</p>
       						</div>
@@ -54,6 +56,7 @@ const domStringDetails = (attractionsArray) => {
 		domStrang +=	`</div>`;
 	clearDom();
 	printDetailsToDom(domStrang);
+	
 };
 
 const clearDom = (divName) => {
