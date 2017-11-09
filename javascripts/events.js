@@ -11,7 +11,8 @@ const pressEnter = () => {
 		let keyCode = e.keyCode || e.which; 
 		if (keyCode === 13) {
 			e.preventDefault();
-			$('.thumbnail').removeClass("area-border");  
+			$('.thumbnail').removeClass("area-border");
+			$('.thumbnail').find('img').first().remove();  
 			if (this.value !== '') {
 				matchingAttractions(this.value);
 			}
@@ -20,17 +21,36 @@ const pressEnter = () => {
 };
 
 const matchingAttractions = (searchInputValue) => {
-	let matchingIds = [];
-	let uniqueMatchingIds = []; 
-	const regex = new RegExp(`${searchInputValue}`, 'gi');
-	data.getAttractions().then((attractions) => {
+	let matchingAreaIds = [];
+	let matchingUpsideDownAreaIds = [];
+	const regex = RegExp(`${searchInputValue}`, 'gi');
+	data.getAttractions().then((fbAttractions) => {
+		let attractions = attractionsJS.applyUpsideDowntoAttractions(fbAttractions);
 		attractions.forEach((attraction) => {
 			if (regex.test(attraction.name)) {
-				matchingIds.push(attraction.area_id); 
+				matchingAreaIds.push(attraction.area_id);
+				if (attraction.isUpsideDown === true) {
+					matchingUpsideDownAreaIds.push(attraction.area_id);
+				} 
 			}
 		});
-		highlightAreas(matchingIds);
+		let uniqueMatchingAreaIds = [...new Set(matchingAreaIds)]; 
+		let uniqueMatchingUpsideDownAreaIds = [...new Set(matchingAreaIds)];
+		highlightAreas(uniqueMatchingAreaIds);
+		giveAreasUpsideDownImage(uniqueMatchingUpsideDownAreaIds);
 	}); 
+};
+
+const giveAreasUpsideDownImage = (matchingAreas) => {
+	$('.thumbnail').each( function () {
+		let domElement = $(this); 
+		let domId = $(this).data("area-id");
+		matchingAreas.forEach((id) => {
+			if (id === domId) {
+				domElement.prepend('<img class="upside-down-img" src="./images/upside-down-img.jpg" />');
+			}
+		});
+	});
 };
 
 
