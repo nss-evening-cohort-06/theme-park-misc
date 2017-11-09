@@ -16,8 +16,11 @@ body {
 }
 
 #sidebar-wrapper {
-    height: 755px; 
+    width: 30%;
+    height: 100%;
+    position: fixed;
     background-color: $sidebar;
     float: left;
     color: $sidebarText;
+    overflow: auto;
 }
