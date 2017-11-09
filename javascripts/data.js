@@ -39,6 +39,7 @@ const retrieveKeys = () => {
     });
 };
 
+
 const updateFixedAttractions = (attractions) => {
     let fixedAttractions = attractionsJS.findFixedAttractions(attractions, moment());
     fixedAttractions.forEach((fixedAttraction) => {
