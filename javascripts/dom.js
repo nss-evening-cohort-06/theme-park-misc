@@ -11,6 +11,7 @@ const domStringAreas = (areaCollection) => {
   		domStringAreas +=   `<div class="col-md-4">`;
     	domStringAreas +=     `<div class="thumbnail" data-area-id="${areaCollection[i].id}" style="background-color:#${areaCollection[i].colorTheme}">`;
     	domStringAreas +=	      `<h3 class="areaName">${areaCollection[i].name}</h3>`;
+      domStringAreas +=       `<p class="areaDescription">${areaCollection[i].description}</p>`;
     	domStringAreas +=	    `</div>`;
     	domStringAreas +=   `</div>`;
 	}
@@ -31,11 +32,10 @@ const domStringAreas = (areaCollection) => {
 };
 
 const domStringDetails = (attractionsArray, isArea) => {
-		let domStrang = "";
-		domStrang += `<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">`;
-		for (let i = 0; i < attractionsArray.length; i++) {
-	console.log(attractionsArray[i]);
-		let upsideDownClass =  (attractionsArray[i].isUpsideDown === true) ? "upside-down" : "";
+    let domStrang = "";
+    domStrang += `<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">`;
+    for (let i = 0; i < attractionsArray.length; i++) {
+    console.log(attractionsArray[i]);
 
       domStrang += `<div class="panel panel-default">`;
       domStrang +=   `<div class="panel-heading" role="tab" id="heading${i}">`;
@@ -50,23 +50,19 @@ const domStringDetails = (attractionsArray, isArea) => {
       domStrang +=     `</h4>`;
       domStrang +=   `</div>`;
       domStrang +=   `<div id="collapse${i}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading${i}">`;
-      domStrang +=     `<div class="panel-body ${upsideDownClass}">`;
+      domStrang +=     `<div class="panel-body">`;
       domStrang +=       `<p>Description: ${attractionsArray[i].description}</p>`;
       if (attractionsArray[i].times){
-      domStrang +=       `<p>Times: ${attractionsArray[i].times}</p>`;
-      domStrang +=       `</div>`;
+      domStrang +=       `<p>Times: ${attractionsArray[i].times}</p></div>`;
       } else {
-        domStrang +=     `</div>`;
+        domStrang +=   `</div>`;
       }
-      domStrang +=     `</div>`;
       domStrang +=   `</div>`;
       domStrang += `</div>`;
-      domStrang +=   `</div>`;
-		}
-		domStrang +=	`</div>`;
-	clearDom();
-	printDetailsToDom(domStrang);
-	
+    }
+    domStrang +=  `</div>`;
+  clearDom();
+  printDetailsToDom(domStrang);
 };
 
 const clearDom = (divName) => {
@@ -74,7 +70,7 @@ const clearDom = (divName) => {
 };
 
 const printAreasToDom = (strang) => {
-	$("#areaHolder").append(strang);
+	$("#areaHolder").html(strang);
 };
 
 const printDetailsToDom = (strang) => {

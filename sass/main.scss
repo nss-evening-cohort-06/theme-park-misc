@@ -11,7 +11,7 @@ body {
 }
 
 .thumbnail {
-	height: 250px;
+	height: 220px;
 	text-align: center;
 	overflow: auto;
 	color: $lightText;
@@ -23,9 +23,17 @@ body {
 }
 
 #sidebar-wrapper {
-    height: 755px; 
-    background-color: $sidebar;
     width: 30%;
     float: left;
+    min-width: 426px;
     color: $sidebarText;
+}
+
+.set-height {
+	height: 455px;
+	overflow: scroll;
+}
+
+#sideContainer {
+	padding-left: 0;
 }

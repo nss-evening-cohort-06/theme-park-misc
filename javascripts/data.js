@@ -34,25 +34,24 @@ const retrieveKeys = () => {
         return getAttractionsWithTypeAndMaintenanceTickets();
     }).then((attractions) => {
         updateFixedAttractions(attractions);
-        giveAreasUpsideDownColor(attractions);
     }).catch((error) => {
         console.log(error); 
     });
 };
 
-const giveAreasUpsideDownColor = (attractions) => {
-		let upsideDownAreas = attractionsJS.getUpsideDownAreas(attractions); 
-		$('.thumbnail').each( function () {
-			let domElement = $(this); 
-			let domId = $(this).data("area-id");
-			upsideDownAreas.forEach((id) => {
-				if (id === domId) {
-                    domElement.css("background-color", "");
-                    domElement.addClass("upside-down");
-				}
-			});
-		});
-};
+// const giveAreasUpsideDownColor = (attractions) => {
+// 		let upsideDownAreas = attractionsJS.getUpsideDownAreas(attractions); 
+// 		$('.thumbnail').each( function () {
+// 			let domElement = $(this); 
+// 			let domId = $(this).data("area-id");
+// 			upsideDownAreas.forEach((id) => {
+// 				if (id === domId) {
+//                     domElement.css("background-color", "");
+//                     domElement.addClass("upside-down");
+// 				}
+// 			});
+// 		});
+// };
 
 const updateFixedAttractions = (attractions) => {
     let fixedAttractions = attractionsJS.findFixedAttractions(attractions, moment());
