@@ -41,14 +41,13 @@ const retrieveKeys = () => {
 };
 
 const giveAreasUpsideDownColor = (attractions) => {
-		let upsideDownAreas = attractionsJS.getUpsideDownAreas(attractions); 
+        let upsideDownAreas = attractionsJS.getUpsideDownAreas(attractions);
 		$('.thumbnail').each( function () {
 			let domElement = $(this); 
 			let domId = $(this).data("area-id");
 			upsideDownAreas.forEach((id) => {
 				if (id === domId) {
-                    domElement.css("background-color", "");
-                    domElement.addClass("upside-down");
+                    domElement.prepend('<img class="upside-down-img" src="./images/upside-down-img.jpg" />');
 				}
 			});
 		});

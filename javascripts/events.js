@@ -60,7 +60,6 @@ const clickArea = () => {
 	$(document).ready(() => {
 		$(document).on("click", ".thumbnail", (function(e){
 			let areaId = $(this).data("area-id");
-			console.log("areaId", areaId);
 			data.getAttractionsWithTypeAndMaintenanceTicketsbyAreaId(areaId).then((attractions) => {
 				let openAttractions = attractionsJS.getOpenAttractions(attractions);
 				let openWithUpsideDown = attractionsJS.applyUpsideDowntoAttractions(openAttractions);

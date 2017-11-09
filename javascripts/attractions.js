@@ -112,7 +112,8 @@ const getUpsideDownAreas = (attractions) => {
             return attraction.area_id;
         }
     });
-    return upsideDownAreas; 
+    let uniqueUpsideDownAreas = [...new Set(upsideDownAreas)];  
+    return uniqueUpsideDownAreas; 
 }; 
 
 
