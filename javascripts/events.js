@@ -12,6 +12,7 @@ const pressEnter = () => {
 		if (keyCode === 13) {
 			e.preventDefault();
 			$('.thumbnail').removeClass("area-border");
+			$('.thumbnail').removeClass("upside-down-image");
 			if (this.value !== '') {
 				matchingAttractions(this.value);
 			}
@@ -34,7 +35,7 @@ const matchingAttractions = (searchInputValue) => {
 			}
 		});
 		let uniqueMatchingAreaIds = [...new Set(matchingAreaIds)]; 
-		let uniqueMatchingUpsideDownAreaIds = [...new Set(matchingAreaIds)];
+		let uniqueMatchingUpsideDownAreaIds = [...new Set(matchingUpsideDownAreaIds)];
 		highlightAreas(uniqueMatchingAreaIds);
 		giveAreasUpsideDownImage(uniqueMatchingUpsideDownAreaIds);
 	}); 
@@ -46,7 +47,7 @@ const giveAreasUpsideDownImage = (matchingAreas) => {
 		let domId = $(this).data("area-id");
 		matchingAreas.forEach((id) => {
 			if (id === domId) {
-				domElement.prepend('<img class="upside-down-img" src="./images/upside-down-img.jpg" />');
+				domElement.addClass('upside-down-image');
 			}
 		});
 	});
@@ -57,7 +58,6 @@ const highlightAreas = (matchingIds) => {
 	$('.thumbnail').each( function () {
 		let domElement = $(this); 
 		let domId = $(this).data("area-id");
-		domElement.find('img').first().remove();  
 		matchingIds.forEach((id) => {
 			if (id === domId) {
 				domElement.addClass("area-border");
