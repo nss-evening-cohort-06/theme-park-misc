@@ -34,6 +34,7 @@ const domStringDetails = (attractionsArray, isArea) => {
 		let domStrang = "";
 		domStrang += `<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">`;
 		for (let i = 0; i < attractionsArray.length; i++) {
+	console.log(attractionsArray[i]);
 		let upsideDownClass =  (attractionsArray[i].isUpsideDown === true) ? "upside-down" : "";
 
       domStrang += `<div class="panel panel-default">`;
@@ -52,11 +53,12 @@ const domStringDetails = (attractionsArray, isArea) => {
       domStrang +=     `<div class="panel-body ${upsideDownClass}">`;
       domStrang +=       `<p>Description: ${attractionsArray[i].description}</p>`;
       if (attractionsArray[i].times){
-      domStrang +=       `<p>Times: ${attractionsArray[i].times}</p></div>`;
+      domStrang +=       `<p>Times: ${attractionsArray[i].times}</p>`;
       } else {
         domStrang +=   `</div>`;
       }
       domStrang +=   `</div>`;
+      domStrang += `</div>`;
 		}
 		domStrang +=	`</div>`;
 	clearDom();
