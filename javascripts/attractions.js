@@ -2,6 +2,8 @@
 
 const moment = require('../lib/node_modules/moment/moment.js');
 
+const upsideDownTerms = 'away, beneath, blinking, broken, camera, christmasclaws, cruiser, darkness, enchanted, evil, film, forgotten, friend, gasoline, ghost, gloomy, hawkins, hidden, hungry, indiana, invisible, labyrinth, lights, merlin, mike, monsters, neon, nighttime, party, portal, pulsate, school, sheriff, spellbinding, supernatural, thunder, underground, vintage, waffle';
+
 //sorts maintenance times in the array so index 0 will always be the first date of maintenance
 //this is used in the getAttractionsWithMaitenanceTickets promise
 
@@ -87,11 +89,42 @@ const getOpenAttractions = (attractionsWithMaint, time) => {
     return openAttractions;
 }; 
 
+
+const applyUpsideDowntoAttractions = (attractions) => {
+    let upsideDownTermsArr = upsideDownTerms.split(", "); 
+    attractions.forEach((attraction) => {
+        attraction.isUpsideDown = false; 
+        upsideDownTermsArr.some((term) => {
+            let regexTerm = RegExp(`\\b(${term})\\b`, 'gi');
+            if (regexTerm.test(attraction.description)) {
+                attraction.isUpsideDown = true;
+                return true; 
+            }
+        });
+    });
+    return attractions; 
+};
+
+const getUpsideDownAreas = (attractions) => {
+    let attractionsWithUpsideDown = applyUpsideDowntoAttractions(attractions); 
+    let upsideDownAreas = attractionsWithUpsideDown.map((attraction) => {
+        if (attraction.isUpsideDown === true) {
+            return attraction.area_id;
+        }
+    });
+    let uniqueUpsideDownAreas = [...new Set(upsideDownAreas)];  
+    return uniqueUpsideDownAreas; 
+}; 
+
+
+
 module.exports = {
     sortMaintenance,
     findFixedAttractions, 
     filterUnderMaintenance,
-    getOpenAttractions
+    getOpenAttractions,
+    applyUpsideDowntoAttractions,
+    getUpsideDownAreas
 };
 
 
