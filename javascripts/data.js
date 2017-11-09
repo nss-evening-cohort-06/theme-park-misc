@@ -335,7 +335,8 @@ const filterByTime = (onesWithTime, areas, userSelectedDateAndTime) => {
                 } // end if for time comparison
             }); // end onesWithTime.forEach(time)     
         });  
-    dom.domStringDetails(sortedArray, false);   
+    dom.domStringDetails(sortedArray, false);
+    sortedArray = []; 
 };
 
 
