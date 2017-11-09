@@ -46,47 +46,29 @@ const highlightAreas = (matchingIds) => {
 	});
 };
 let userSelectedDateAndTime;
-let something = [];
-// from getCurrentTime and getSelectedTime
-const showAttractionsByTime = () => {
-// only prints things when both fields have been filled in,
 
-	// get attractions ...
-		$(document).ready(time.getCurrentTime());
-			// $(document).ready(dom.domStringDetails("time", time.getCurrentTime()));
+const showAttractionsByTime = () => {
+
 		$("#datepicker").blur(() => {
 			userSelectedDateAndTime = time.getSelectedDay();
 			if (userSelectedDateAndTime != undefined) {
-				// console.log("I just need all things that have a time tied to it", data.getAttractionsWithAreasByTime(userSelectedDateAndTime));
-				// do something with the time and date
-				console.log("here!");
+
 				data.getAttractionsWithAreasByTime(userSelectedDateAndTime);
-				something = data.getAttractionsSortedByTime();
-					console.log("user selected goodies", something);
 			}
-					dom.domStringDetails(something, "time");
 
 		});
 
 		$(".dropdown-menu").click((e) => {
 			userSelectedDateAndTime = time.getSelectedTime(e);
 			if (userSelectedDateAndTime != undefined) {
-				console.log("here!");
-				// console.log("I just need all things that have a time tied to it", data.getAttractionsWithAreasByTime(userSelectedDateAndTime));
-				// do something with the time and date
+
 				data.getAttractionsWithAreasByTime(userSelectedDateAndTime);
-				something = data.getAttractionsSortedByTime();
-					console.log("user selected goodies", something);
-				
-				// console.log("user elected goodies", userSelectedDateAndTime);				
+
 			}
-				dom.domStringDetails(something, "time");
 
  });
-};
-		// ... and send those results to dom
-		// ... 
-	// dom.domStringDetails(openAttractions, false);
+
+}; // end showAttractionsByTime()
 
 const clickArea = () => {
 	$(document).ready(() => {
@@ -137,6 +119,6 @@ const init = () => {
 
 module.exports = {
 	init,
-	testFunction,
+	testFunction
 };
 

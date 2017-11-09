@@ -290,54 +290,40 @@ const getAttractionsWithAreasByTime = (userSelectedDateAndTime) => {    // this 
       attractions = _attractions;
       let availableAttractions = attractionsJS.getOpenAttractions(attractions, userSelectedDateAndTime);
     // if any attraction has a time ...
-        let attractionsWithTimes = availableAttractions.filter((attraction) => {
+        // let attractionsWithTimes = availableAttractions.filter((attraction) => {
+        attractions = availableAttractions.filter((attraction) => {
+
             return attraction.times;
       }); // end filter
     // return filterByTime(attractionsWithTimes, userSelectedDateAndTime);
-    filterByTime(attractionsWithTimes, userSelectedDateAndTime);
+    return getAreas();
+    }).then((areas) => {
+        filterByTime(attractions, areas, userSelectedDateAndTime);
     }); // end 
 };
 
 
-const filterByTime = (onesWithTime, userSelectedDateAndTime) => {
+const filterByTime = (onesWithTime, areas, userSelectedDateAndTime) => {
     // holds matching attractions by name
     let holdingArray = [];
 
-    onesWithTime.forEach((attraction) => {
-        attraction.times.forEach((time) => {
+        onesWithTime.forEach((attraction) => {
+            attraction.times.forEach((time) => {
 
-            if (moment(userSelectedDateAndTime, 'LLLL').startOf('hour').format("LT") === moment(time, 'h:A').startOf('hour').format("LT")) {
-                holdingArray.push(attraction);
-            } // end if for time comparison
-        }); // end onesWithTime.forEach(time)
-    });
-
-    getAreas().then((areas) => {
-        areas.forEach((area) => {
-            holdingArray.forEach((openAttractions) => {
-                    // console.log("open attractions", openAttractions);
-                if (openAttractions.area_id === area.id) {
-                    openAttractions.areaName = area.name;
-                    sortedArray.push(openAttractions);                        
-                }
-            }); // end holdingArray.forEach       
-        });
-        // return sortedArray;
- // return sortedArray;
- }); // end filterByTime(attraction) 
-
-               
+                if (moment(userSelectedDateAndTime, 'LLLL').startOf('hour').format("LT") === moment(time, 'h:A').startOf('hour').format("LT")) {
+                    holdingArray.push(attraction);
+                    areas.forEach((area) => {
+                        if (attraction.area_id === area.id) {
+                            attraction.areaName = area.name;
+                            sortedArray.push(attraction);                        
+                        }
+                    });
+                } // end if for time comparison
+            }); // end onesWithTime.forEach(time)     
+        });  
+    dom.domStringDetails(sortedArray, false);   
 };
 
-const getAttractionsSortedByTime = () => {
-        console.log("final sortedArray on the outside", sortedArray);
-    return sortedArray;
-};
-
-// what i have left to do:
-
-    // take care of that fringe 8:55 AM case
-        // add it to anytime someone asks for 9AM
 
 module.exports = {
     getAttractions,
@@ -346,7 +332,6 @@ module.exports = {
     getAttractionTypes,
     getAttractionsWithTypeByAreaId,
     getAttractionsWithAreasByTime,
-    getAttractionsSortedByTime,
     getAttractionsWithTypeAndMaintenanceTicketsbyAreaId,
     updateFixedAttraction,
     getAreas,
