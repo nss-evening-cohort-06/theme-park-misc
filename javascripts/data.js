@@ -35,10 +35,24 @@ const retrieveKeys = () => {
         dom.domStringAreas(areas);
         return getAttractionsWithTypeAndMaintenanceTickets();
     }).then((attractions) => {
-        updateFixedAttractions(attractions); 
+        updateFixedAttractions(attractions);
+        giveAreasUpsideDownColor(attractions);
     }).catch((error) => {
         console.log(error); 
     });
+};
+
+const giveAreasUpsideDownColor = (attractions) => {
+        let upsideDownAreas = attractionsJS.getUpsideDownAreas(attractions);
+		$('.thumbnail').each( function () {
+			let domElement = $(this); 
+			let domId = $(this).data("area-id");
+			upsideDownAreas.forEach((id) => {
+				if (id === domId) {
+                    domElement.prepend('<img class="upside-down-img" src="./images/upside-down-img.jpg" />');
+				}
+			});
+		});
 };
 
 const updateFixedAttractions = (attractions) => {

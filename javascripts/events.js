@@ -74,12 +74,11 @@ const clickArea = () => {
 	$(document).ready(() => {
 		$(document).on("click", ".thumbnail", (function(e){
 			let areaId = $(this).data("area-id");
-			console.log("areaId", areaId);
 			data.getAttractionsWithTypeAndMaintenanceTicketsbyAreaId(areaId).then((attractions) => {
-				console.log("attractions", attractions);
 				let openAttractions = attractionsJS.getOpenAttractions(attractions);
-				console.log("open attractions", openAttractions);
-				dom.domStringDetails(openAttractions, true);
+				let openWithUpsideDown = attractionsJS.applyUpsideDowntoAttractions(openAttractions);
+				dom.domStringDetails(openWithUpsideDown, moment());
+
 			}).catch((err) => {
 				console.log(err);
 			});
@@ -88,23 +87,14 @@ const clickArea = () => {
 	});
 };
 
-
-// 	//do something to get the clicked thumbnail data-area-id (e.)
-// 	// when user clicks on a particular area ...
-// 		// ... then a list of attracitons in that area is populated on the sidebar
-// 		// ... AND finds the areaId of the clicked area ...
-// 			// ... sends values to domStringDetails
-// 	//dom.domStringDetails("area", parkMash, areaId);
-// };
-
-
 //***use this to test functions requiring ajax calls - just press "t" in the search box and this with execute**** 
 const testFunction = () => {
 	$("#searchBox").keypress(function (e) {
 		let keyCode = e.keyCode || e.which; 
 		if (keyCode === 116) {
-			data.getAttractionsWithTypeAndMaintenanceTicketsbyAreaId(1).then((attractions) => {
-				console.log(attractions); 
+			data.getAttractions().then((attractions) => {
+				let upsideDownAttractions = attractionsJS.applyUpsideDowntoAttractions(attractions); 
+				console.log(upsideDownAttractions); 
 			});
 		}
 	}); 

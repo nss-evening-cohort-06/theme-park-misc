@@ -38,45 +38,46 @@
 </nav>
 
 <div id="wrapper">
-<div class="container container-fluid">
-<div id="time" class="col-xs-12 col-sm-3 col-sm-offset-5">
-  <div class="col-xs-12 dropdown">
-    <button class="btn btn-default col-xs-12 text-center dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-      Select A Time
-      <span class="caret"></span>
-    </button>
-    <ul id="time-picker" class="dropdown-menu scrollable-menu col-xs-12" aria-labelledby="dropdownMenu1">
-      <li><a id="9AM">9:00 AM</a></li>
-      <li><a id="10AM">10:00 AM</a></li>
-      <li><a id="11AM">11:00 AM</a></li>
-      <li><a id="12PM">12:00 PM</a></li>
-      <li><a id="1PM">1:00 PM</a></li>
-      <li><a id="2PM">2:00 PM</a></li>
-      <li><a id="3PM">3:00 PM</a></li>
-      <li><a id="4PM">4:00 PM</a></li>
-      <li><a id="5PM">5:00 PM</a></li>
-      <li><a id="6PM">6:00 PM</a></li>
-      <li><a id="7PM">7:00 PM</a></li>
-      <li><a id="8PM">8:00 PM</a></li>
-      <li><a id="9PM">9:00 PM</a></li>
-      <li><a id="10M">10:00 PM</a></li>
-    </ul>
-  </div>
-    <input type="text" id="datepicker">
-</div>
+  <div class="container container-fluid">
+    <div id="time" class="col-xs-12 col-sm-3 col-sm-offset-5">
+      <div class="col-xs-12 dropdown">
+        <button class="btn btn-default col-xs-12 text-center dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+          Select A Time
+          <span class="caret"></span>
+        </button>
+        <ul id="time-picker" class="dropdown-menu scrollable-menu col-xs-12" aria-labelledby="dropdownMenu1">
+          <li><a id="9AM">9:00 AM</a></li>
+          <li><a id="10AM">10:00 AM</a></li>
+          <li><a id="11AM">11:00 AM</a></li>
+          <li><a id="12PM">12:00 PM</a></li>
+          <li><a id="1PM">1:00 PM</a></li>
+          <li><a id="2PM">2:00 PM</a></li>
+          <li><a id="3PM">3:00 PM</a></li>
+          <li><a id="4PM">4:00 PM</a></li>
+          <li><a id="5PM">5:00 PM</a></li>
+          <li><a id="6PM">6:00 PM</a></li>
+          <li><a id="7PM">7:00 PM</a></li>
+          <li><a id="8PM">8:00 PM</a></li>
+          <li><a id="9PM">9:00 PM</a></li>
+          <li><a id="10M">10:00 PM</a></li>
+        </ul>
+      </div>
+        <input type="text" id="datepicker">
+    </div>
 
-<div class="col-sm-4"></div>
-</div>
+    <div class="col-sm-4"></div>
+  </div>
+  </div>
         <!-- Sidebar -->
 
-<div class="container-fluid">
+<div class="container-fluid" id="sideContainer">
 
   <div class="row">
 
-    <div class="col-md-4">
-      <div id="sidebar-wrapper"></div>
-    </div>
 
+  <div class="col-md-4 set-height">
+    <div id="sidebar-wrapper"></div>
+  </div>
     <div class="col-md-8">
       <div id="areaHolder"></div>
     </div>
