@@ -57,6 +57,7 @@ const domStringDetails = (attractionsArray, isArea) => {
         domStrang +=   `</div>`;
       }
       domStrang +=   `</div>`;
+      domStrang +=   `</div>`;
 		}
 		domStrang +=	`</div>`;
 	clearDom();

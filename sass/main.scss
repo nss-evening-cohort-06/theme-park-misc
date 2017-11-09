@@ -11,13 +11,20 @@ body {
     box-shadow:inset 0px 0px 0px 5px #000;
 }
 
+.thumbnail {
+	height: 250px;
+	text-align: center;
+	overflow: auto;
+	color: $lightText;
+	font-size: 11px;
+}
 
 .navMargin {
 	margin-bottom: 0;
 }
 
 #sidebar-wrapper {
-	width: 30%;
+    width: 30%;
     float: left;
     min-width: 426px;
     color: $sidebarText;
