@@ -12,7 +12,6 @@ const pressEnter = () => {
 		if (keyCode === 13) {
 			e.preventDefault();
 			$('.thumbnail').removeClass("area-border");
-			$('.thumbnail').find('img').first().remove();  
 			if (this.value !== '') {
 				matchingAttractions(this.value);
 			}
@@ -58,6 +57,7 @@ const highlightAreas = (matchingIds) => {
 	$('.thumbnail').each( function () {
 		let domElement = $(this); 
 		let domId = $(this).data("area-id");
+		domElement.find('img').first().remove();  
 		matchingIds.forEach((id) => {
 			if (id === domId) {
 				domElement.addClass("area-border");
@@ -88,7 +88,6 @@ const clickArea = () => {
 			}).catch((err) => {
 				console.log(err);
 			});
-			console.log("listening for click on .thumbnail");
 		}));
 	});
 };
