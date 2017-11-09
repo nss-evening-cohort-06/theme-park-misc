@@ -4,6 +4,7 @@ const data = require("./data");
 const dom = require("./dom");
 const time = require("./time");
 const attractionsJS = require('./attractions'); 
+const moment = require('../lib/node_modules/moment/moment.js');
 
 const pressEnter = () => {
 	$("#searchBox").keypress(function (e) {
@@ -58,6 +59,7 @@ const showAttractionsByTime = () => {
 			if (userSelectedDateAndTime != undefined) {
 				// console.log("I just need all things that have a time tied to it", data.getAttractionsWithAreasByTime(userSelectedDateAndTime));
 				// do something with the time and date
+				console.log("here!");
 				data.getAttractionsWithAreasByTime(userSelectedDateAndTime);
 				something = data.getAttractionsSortedByTime();
 					console.log("user selected goodies", something);
@@ -69,35 +71,50 @@ const showAttractionsByTime = () => {
 		$(".dropdown-menu").click((e) => {
 			userSelectedDateAndTime = time.getSelectedTime(e);
 			if (userSelectedDateAndTime != undefined) {
+				console.log("here!");
 				// console.log("I just need all things that have a time tied to it", data.getAttractionsWithAreasByTime(userSelectedDateAndTime));
 				// do something with the time and date
 				data.getAttractionsWithAreasByTime(userSelectedDateAndTime);
 				something = data.getAttractionsSortedByTime();
 					console.log("user selected goodies", something);
 				
-
-
 				// console.log("user elected goodies", userSelectedDateAndTime);				
 			}
 				dom.domStringDetails(something, "time");
 
  });
-		// ON PAGE LOAD ...
-			// get all attractions,
-			// if any attraction has a time
-			// and if that time === the selected time
-				// save that to a new array
-					// and send that out to domStringDetails("time", )
-		// ... filter attractions based on the time the user clicked
+};
+		// ... and send those results to dom
+		// ... 
+	// dom.domStringDetails(openAttractions, false);
+
+const clickArea = () => {
+	$(document).ready(() => {
+		$(document).on("click", ".thumbnail", (function(e){
+			let areaId = $(this).data("area-id");
+			console.log("areaId", areaId);
+			data.getAttractionsWithTypeAndMaintenanceTicketsbyAreaId(areaId).then((attractions) => {
+				console.log("attractions", attractions);
+				let openAttractions = attractionsJS.getOpenAttractions(attractions);
+				console.log("open attractions", openAttractions);
+				dom.domStringDetails(openAttractions, true);
+			}).catch((err) => {
+				console.log(err);
+			});
+			console.log("listening for click on .thumbnail");
+		}));
+	});
 };
 
 
+// 	//do something to get the clicked thumbnail data-area-id (e.)
+// 	// when user clicks on a particular area ...
+// 		// ... then a list of attracitons in that area is populated on the sidebar
+// 		// ... AND finds the areaId of the clicked area ...
+// 			// ... sends values to domStringDetails
+// 	//dom.domStringDetails("area", parkMash, areaId);
+// };
 
-const init = () => {
-	showAttractionsByTime();
-	pressEnter();
-	pressEnter();
-};
 
 //***use this to test functions requiring ajax calls - just press "t" in the search box and this with execute**** 
 const testFunction = () => {
@@ -111,4 +128,15 @@ const testFunction = () => {
 	}); 
 };
 
-module.exports = {init, testFunction};
+const init = () => {
+	showAttractionsByTime();
+	clickArea();
+	pressEnter();
+};
+
+
+module.exports = {
+	init,
+	testFunction,
+};
+

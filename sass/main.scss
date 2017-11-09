@@ -1,6 +1,5 @@
 @import 'colors';
 @import 'variables';
-@import 'togglemenu';
 @import '../lib/node_modules/pikaday/scss/pikaday.scss';
 
 body {
@@ -8,7 +7,9 @@ body {
 }
 
 .area-border {
-	border: solid 2px $border;
+    -webkit-box-shadow:inset 0px 0px 0px 15px #000;
+    -moz-box-shadow:inset 0px 0px 0px 5px #000;
+    box-shadow:inset 0px 0px 0px 5px #000;
 }
 
 .scrollable-menu {
@@ -20,74 +21,9 @@ body {
 	margin-bottom: 0;
 }
 
-#wrapper {
-    padding-left: 0;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-#wrapper.toggled {
-    padding-left: 250px;
-}
-
 #sidebar-wrapper {
-    z-index: 1000;
-    position: absolute;
-    left: 30%;
-    width: 0;
-    height: 100%;
-    margin-left: -30%;
-    background: #000;
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
-}
-
-#wrapper.toggled #sidebar-wrapper {
-    width: 250px;
-}
-
-#page-content-wrapper {
-    width: 100%;
-    position: absolute;
-    padding: 15px;
-}
-
-#wrapper.toggled #page-content-wrapper {
-    position: absolute;
-    margin-right: -250px;
-}
-
-
-
-
-@media(min-width:768px) {
-    #wrapper {
-        padding-left: 250px;
-    }
-
-    #wrapper.toggled {
-        padding-left: 0;
-    }
-
-    #sidebar-wrapper {
-        width: 250px;
-    }
-
-    #wrapper.toggled #sidebar-wrapper {
-        width: 0;
-    }
-
-    #page-content-wrapper {
-        padding: 20px;
-        position: relative;
-    }
-
-    #wrapper.toggled #page-content-wrapper {
-        position: relative;
-        margin-right: 0;
-    }
+    height: 755px; 
+    background-color: $sidebar;
+    float: left;
+    color: $sidebarText;
 }
