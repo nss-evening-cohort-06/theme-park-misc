@@ -1,6 +1,5 @@
 @import 'colors';
 @import '../lib/node_modules/pikaday/scss/pikaday.scss';
-@import 'attractions'; 
 
 body {
 	background-color: $lightblue;
@@ -12,17 +11,27 @@ body {
     box-shadow:inset 0px 0px 0px 5px #000;
 }
 
+
 .scrollable-menu {
     height: auto;
     max-height: 150px;
     overflow-x: hidden;
 }
+
+.thumbnail {
+	height: 220px;
+	text-align: center;
+	overflow: auto;
+	color: $lightText;
+	font-size: 11px;
+}
+
 .navMargin {
 	margin-bottom: 0;
 }
 
 #sidebar-wrapper {
-	width: 30%;
+    width: 30%;
     float: left;
     min-width: 426px;
     color: $sidebarText;

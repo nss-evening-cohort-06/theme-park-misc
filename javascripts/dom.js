@@ -11,30 +11,32 @@ const domStringAreas = (areaCollection) => {
   		domStringAreas +=   `<div class="col-md-4">`;
     	domStringAreas +=     `<div class="thumbnail" data-area-id="${areaCollection[i].id}" style="background-color:#${areaCollection[i].colorTheme}">`;
     	domStringAreas +=	      `<h3 class="areaName">${areaCollection[i].name}</h3>`;
+      domStringAreas +=       `<p class="areaDescription">${areaCollection[i].description}</p>`;
     	domStringAreas +=	    `</div>`;
     	domStringAreas +=   `</div>`;
 	}
 
 
-		  domStringAreas +=`<div class="container">`;
-		  domStringAreas +=  `<div class="row">`;
-		  domStringAreas +=    `<div class="col-sm-6">`;
-		  domStringAreas +=      `<footer class="footer">`;
-    	domStringAreas +=        `<div class="container">`;
-    	domStringAreas +=          `<p class="text-muted">&copy; ${moment().format('YYYY')}, ${moment().format("MMMM Do")}</p>`;
-    	domStringAreas +=        `</div>`;
-    	domStringAreas +=      `</footer>`;
-    	domStringAreas +=    `</div>`;
-    	domStringAreas +=  `</div>`;
-    	domStringAreas +=`</div>`;
+		  // domStringAreas +=`<div class="container">`;
+		  // domStringAreas +=  `<div class="row">`;
+		  // domStringAreas +=    `<div class="col-sm-6">`;
+		  // domStringAreas +=      `<footer class="footer">`;
+    // 	domStringAreas +=        `<div class="container">`;
+    // 	domStringAreas +=          `<p class="text-muted">&copy; ${moment().format('YYYY')}, ${moment().format("MMMM Do")}</p>`;
+    // 	domStringAreas +=        `</div>`;
+    // 	domStringAreas +=      `</footer>`;
+    // 	domStringAreas +=    `</div>`;
+    // 	domStringAreas +=  `</div>`;
+    // 	domStringAreas +=`</div>`;
 	printAreasToDom(domStringAreas);
 };
 
 const domStringDetails = (attractionsArray, isArea) => {
 
-		let domStrang = "";
-		domStrang += `<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">`;
-		for (let i = 0; i < attractionsArray.length; i++) {
+    let domStrang = "";
+    domStrang += `<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">`;
+
+    for (let i = 0; i < attractionsArray.length; i++) {
 
 		let upsideDownClass =  (attractionsArray[i].isUpsideDown === true) ? "upside-down" : "";
       domStrang += `<div class="panel panel-default">`;
@@ -49,7 +51,7 @@ const domStringDetails = (attractionsArray, isArea) => {
       domStrang +=     `</h4>`;
       domStrang +=   `</div>`;
       domStrang +=   `<div id="collapse${i}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading${i}">`;
-      domStrang +=     `<div class="panel-body ${upsideDownClass}">`;
+      domStrang +=     `<div class="panel-body">`;
       domStrang +=       `<p>Description: ${attractionsArray[i].description}</p>`;
       if (isArea){
         if (attractionsArray[i].times) {
@@ -60,12 +62,11 @@ const domStringDetails = (attractionsArray, isArea) => {
         domStrang +=   `</div>`;
       }
       domStrang +=   `</div>`;
-      domStrang +=   `</div>`;
-		}
-		domStrang +=	`</div>`;
-	clearDom();
-	printDetailsToDom(domStrang);
-	
+      domStrang += `</div>`;
+    }
+    domStrang +=  `</div>`;
+  clearDom();
+  printDetailsToDom(domStrang);
 };
 
 
@@ -74,7 +75,7 @@ const clearDom = (divName) => {
 };
 
 const printAreasToDom = (strang) => {
-	$("#areaHolder").append(strang);
+	$("#areaHolder").html(strang);
 };
 
 const printDetailsToDom = (strang) => {
