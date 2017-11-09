@@ -11,8 +11,11 @@ body {
 }
 
 .thumbnail {
-	height: 200px;
+	height: 250px;
 	text-align: center;
+	overflow: auto;
+	color: $lightText;
+	font-size: 11px;
 }
 
 .navMargin {
@@ -21,12 +24,14 @@ body {
 
 #sidebar-wrapper {
     width: 30%;
-    height: 100%;
-    position: fixed;
-    background-color: $sidebar;
     float: left;
+    min-width: 426px;
     color: $sidebarText;
-    overflow: auto;
+}
+
+.set-height {
+	height: 455px;
+	overflow: scroll;
 }
 
 #sideContainer {

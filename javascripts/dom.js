@@ -15,17 +15,17 @@ const domStringAreas = (areaCollection) => {
 	}
 
 
-		  // domStringAreas +=`<div class="container">`;
-		  // domStringAreas +=  `<div class="row">`;
-		  // domStringAreas +=    `<div class="col-sm-6">`;
-		  // domStringAreas +=      `<footer class="footer">`;
-    // 	domStringAreas +=        `<div class="container">`;
-    // 	domStringAreas +=          `<p class="text-muted">&copy; ${moment().format('YYYY')}, ${moment().format("MMMM Do")}</p>`;
-    // 	domStringAreas +=        `</div>`;
-    // 	domStringAreas +=      `</footer>`;
-    // 	domStringAreas +=    `</div>`;
-    // 	domStringAreas +=  `</div>`;
-    // 	domStringAreas +=`</div>`;
+		  domStringAreas +=`<div class="container">`;
+		  domStringAreas +=  `<div class="row">`;
+		  domStringAreas +=    `<div class="col-sm-6">`;
+		  domStringAreas +=      `<footer class="footer">`;
+    	domStringAreas +=        `<div class="container">`;
+    	domStringAreas +=          `<p class="text-muted">&copy; ${moment().format('YYYY')}, ${moment().format("MMMM Do")}</p>`;
+    	domStringAreas +=        `</div>`;
+    	domStringAreas +=      `</footer>`;
+    	domStringAreas +=    `</div>`;
+    	domStringAreas +=  `</div>`;
+    	domStringAreas +=`</div>`;
 	printAreasToDom(domStringAreas);
 };
 
@@ -51,11 +51,10 @@ const domStringDetails = (attractionsArray, isArea) => {
       domStrang +=     `<div class="panel-body">`;
       domStrang +=       `<p>Description: ${attractionsArray[i].description}</p>`;
       if (attractionsArray[i].times){
-      domStrang +=       `<p>Times: ${attractionsArray[i].times}</p>`;
+      domStrang +=       `<p>Times: ${attractionsArray[i].times}</p></div>`;
       } else {
-        domStrang +=     `</div>`;
+        domStrang +=   `</div>`;
       }
-      domStrang +=     `</div>`;
       domStrang +=   `</div>`;
       domStrang += `</div>`;
 		}
