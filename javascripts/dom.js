@@ -54,12 +54,14 @@ const domStringDetails = (attractionsArray, isArea) => {
       domStrang +=       `<p>Description: ${attractionsArray[i].description}</p>`;
       if (attractionsArray[i].times){
       domStrang +=       `<p>Times: ${attractionsArray[i].times}</p>`;
+      domStrang +=       `</div>`;
       } else {
         domStrang +=     `</div>`;
       }
       domStrang +=     `</div>`;
       domStrang +=   `</div>`;
       domStrang += `</div>`;
+      domStrang +=   `</div>`;
 		}
 		domStrang +=	`</div>`;
 	clearDom();
