@@ -31,19 +31,19 @@ npm install moment
 ## How This Project Works
 1. Search: When a user types a query in the search bar, then the areas that contain an attraction, whose name contains the search string, should be outlined with a border
 
-	![Demonstrated here](../images/highlightareas.gif)
+	![highlightareas](https://i.makeagif.com/media/11-10-2017/npHCzV.gif)
 
 2. Click: When a user clicks on one of the 7 colored areas, a list of all attractions in that area will populate on the left side of the screen. Any attractions that are out of order or under maintenance will not be shown. 
 
-	![Demonstrated here](../images/clickareaforattractions.gif)
+	![clickareaforattractions](https://i.makeagif.com/media/11-10-2017/XioPax.gif)
 
 3. Accordian: When a user clicks on an attraction in the accordian menu, they will see the description and its hours of operation. 
 
-	![Demonstrated here](../images/descriptionsclick.gif)
+	![descriptionsclick](https://i.makeagif.com/media/11-10-2017/vlVLEI.gif)
 
 4. Time Picker: When a user picks a time from the Time Picker, the user will see all attractions open at that time. The open attractions will appear in the left sidebar.
 
-	![Demonstrated here](../images/datepickerfunction.gif)
+	![datepickerfunction](https://i.makeagif.com/media/11-10-2017/W6uRE_.gif)
 
 
 ## Deployment
