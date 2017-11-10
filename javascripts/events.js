@@ -124,6 +124,7 @@ const testFunction = () => {
 	}); 
 };
 
+
 const init = () => {
 	showAttractionsByTime();
 	clickArea();
