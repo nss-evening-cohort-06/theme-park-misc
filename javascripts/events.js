@@ -45,16 +45,32 @@ const highlightAreas = (matchingIds) => {
 		});
 	});
 };
+let userSelectedDateAndTime;
 
-// from getCurrentTime and getSelectedTime
-const showAttractionsByTime = (chosenTime) => {
-	// get attractions ...
-		// ... filter attractions based on the time the user clicked
-		// ... and send those results to dom
-		// ... 
-	// dom.domStringDetails(openAttractions, false);
+const showAttractionsByTime = () => {
 
-};
+		$("#datepicker").blur(() => {
+			userSelectedDateAndTime = time.getSelectedDay();
+			if (userSelectedDateAndTime != undefined) {
+
+				data.getAttractionsWithAreasByTime(userSelectedDateAndTime);
+				console.log(userSelectedDateAndTime);
+				$("#user-time-feedback").html("Things Happening on: " + userSelectedDateAndTime);
+			}
+
+		});
+
+		$(".dropdown-menu").click((e) => {
+			userSelectedDateAndTime = time.getSelectedTime(e);
+			if (userSelectedDateAndTime != undefined) {
+
+				data.getAttractionsWithAreasByTime(userSelectedDateAndTime);
+				console.log(userSelectedDateAndTime);
+				$("#user-time-feedback").html("Things Happening on: " + userSelectedDateAndTime);
+			}
+ });
+
+}; // end showAttractionsByTime()
 
 const clickArea = () => {
 	$(document).ready(() => {
@@ -74,16 +90,6 @@ const clickArea = () => {
 	});
 };
 
-
-// 	//do something to get the clicked thumbnail data-area-id (e.)
-// 	// when user clicks on a particular area ...
-// 		// ... then a list of attracitons in that area is populated on the sidebar
-// 		// ... AND finds the areaId of the clicked area ...
-// 			// ... sends values to domStringDetails
-// 	//dom.domStringDetails("area", parkMash, areaId);
-// };
-
-
 //***use this to test functions requiring ajax calls - just press "t" in the search box and this with execute**** 
 const testFunction = () => {
 	$("#searchBox").keypress(function (e) {
@@ -97,9 +103,15 @@ const testFunction = () => {
 	}); 
 };
 
+const init = () => {
+	showAttractionsByTime();
+	clickArea();
+	pressEnter();
+};
+
+
 module.exports = {
-	pressEnter, 
-	testFunction,
-	clickArea
+	init,
+	testFunction
 };
 
