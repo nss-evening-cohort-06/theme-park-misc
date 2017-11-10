@@ -5,30 +5,26 @@ const moment = require('../lib/node_modules/moment/moment.js');
 
 //accepts an arrays of area name and its area ID to makes area boxes
 const domStringAreas = (areaCollection) => {
-	let domStringAreas = "";
+  let domStringAreas = "";
 
-  	for (let i = 0; i < areaCollection.length; i++){
-  		domStringAreas +=   `<div class="col-md-4">`;
-    	domStringAreas +=     `<div class="thumbnail" data-area-id="${areaCollection[i].id}" style="background-color:#${areaCollection[i].colorTheme}">`;
-    	domStringAreas +=	      `<h3 class="areaName">${areaCollection[i].name}</h3>`;
+    for (let i = 0; i < areaCollection.length; i++){
+      domStringAreas +=   `<div class="col-md-4">`;
+      domStringAreas +=     `<div class="thumbnail" data-area-id="${areaCollection[i].id}" style="background-color:#${areaCollection[i].colorTheme}">`;
+      domStringAreas +=       `<h3 class="areaName">${areaCollection[i].name}</h3>`;
       domStringAreas +=       `<p class="areaDescription">${areaCollection[i].description}</p>`;
-    	domStringAreas +=	    `</div>`;
-    	domStringAreas +=   `</div>`;
-	}
+      domStringAreas +=     `</div>`;
+      domStringAreas +=   `</div>`;
+  }
 
 
-		  // domStringAreas +=`<div class="container">`;
-		  // domStringAreas +=  `<div class="row">`;
-		  // domStringAreas +=    `<div class="col-sm-6">`;
-		  // domStringAreas +=      `<footer class="footer">`;
-    // 	domStringAreas +=        `<div class="container">`;
-    // 	domStringAreas +=          `<p class="text-muted">&copy; ${moment().format('YYYY')}, ${moment().format("MMMM Do")}</p>`;
-    // 	domStringAreas +=        `</div>`;
-    // 	domStringAreas +=      `</footer>`;
-    // 	domStringAreas +=    `</div>`;
-    // 	domStringAreas +=  `</div>`;
-    // 	domStringAreas +=`</div>`;
-	printAreasToDom(domStringAreas);
+      domStringAreas +=  `<div class="row">`;
+      domStringAreas +=    `<div class="col-sm-12">`;
+      domStringAreas +=      `<footer class="footer">`;
+      domStringAreas +=          `<p class="text-muted text-center">&copy; ${moment().format('YYYY')}, ${moment().format("MMMM Do")}</p>`;
+      domStringAreas +=      `</footer>`;
+      domStringAreas +=    `</div>`;
+      domStringAreas +=`</div>`;
+  printAreasToDom(domStringAreas);
 };
 
 const domStringDetails = (attractionsArray, isArea) => {
@@ -37,7 +33,7 @@ const domStringDetails = (attractionsArray, isArea) => {
     domStrang += `<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">`;
 
     for (let i = 0; i < attractionsArray.length; i++) {
-			let upsideDownClass =  (attractionsArray[i].isUpsideDown === true) ? "upside-down" : "";
+      let upsideDownClass =  (attractionsArray[i].isUpsideDown === true) ? "upside-down" : "";
       domStrang += `<div class="panel panel-default">`;
       domStrang +=   `<div class="panel-heading" role="tab" id="heading${i}">`;
       domStrang +=     `<h4 class="panel-title">`;
@@ -54,7 +50,7 @@ const domStringDetails = (attractionsArray, isArea) => {
       domStrang +=       `<p>Description: ${attractionsArray[i].description}</p>`;
       if (isArea){
         if (attractionsArray[i].times) {
-          domStrang +=       `<p>Times: ${attractionsArray[i].times}</p>`;
+          domStrang +=       `<p>Times: ${attractionsArray[i].times.join(", ")}</p>`;
         }
           domStrang +=       `</div>`;
       } else {
@@ -74,11 +70,11 @@ const clearDom = (divName) => {
 };
 
 const printAreasToDom = (strang) => {
-	$("#areaHolder").html(strang);
+  $("#areaHolder").html(strang);
 };
 
 const printDetailsToDom = (strang) => {
-	$('#sidebar-wrapper').html(strang);
+  $('#sidebar-wrapper').html(strang);
 };
 
 module.exports = {domStringAreas, domStringDetails};
