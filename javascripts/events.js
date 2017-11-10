@@ -67,6 +67,7 @@ const highlightAreas = (matchingIds) => {
 };
 let userSelectedDateAndTime;
 
+
 const showAttractionsByTime = () => {
 
 		$("#datepicker").blur(() => {
@@ -74,6 +75,7 @@ const showAttractionsByTime = () => {
 			if (userSelectedDateAndTime != undefined) {
 
 				data.getAttractionsWithAreasByTime(userSelectedDateAndTime);
+			  $("#time-feedback").removeClass("hide");
 				$("#user-time-feedback").html("Things Happening on: " + userSelectedDateAndTime);
 			}
 
@@ -84,6 +86,7 @@ const showAttractionsByTime = () => {
 			if (userSelectedDateAndTime != undefined) {
 
 				data.getAttractionsWithAreasByTime(userSelectedDateAndTime);
+			  $("#time-feedback").removeClass("hide");
 				$("#user-time-feedback").html("Things Happening on: " + userSelectedDateAndTime);
 			}
  });
@@ -98,6 +101,8 @@ const clickArea = () => {
 				let openAttractions = attractionsJS.getOpenAttractions(attractions);
 				let openWithUpsideDown = attractionsJS.applyUpsideDowntoAttractions(openAttractions);
 				dom.domStringDetails(openWithUpsideDown, moment());
+			  $("#time-feedback").addClass("hide");
+
 
 			}).catch((err) => {
 				console.log(err);
