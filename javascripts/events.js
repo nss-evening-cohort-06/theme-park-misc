@@ -11,7 +11,8 @@ const pressEnter = () => {
 		let keyCode = e.keyCode || e.which; 
 		if (keyCode === 13) {
 			e.preventDefault();
-			$('.thumbnail').removeClass("area-border");  
+			$('.thumbnail').removeClass("area-border");
+			$('.thumbnail').removeClass("upside-down-image");
 			if (this.value !== '') {
 				matchingAttractions(this.value);
 			}
@@ -20,17 +21,36 @@ const pressEnter = () => {
 };
 
 const matchingAttractions = (searchInputValue) => {
-	let matchingIds = [];
-	let uniqueMatchingIds = []; 
-	const regex = new RegExp(`${searchInputValue}`, 'gi');
-	data.getAttractions().then((attractions) => {
+	let matchingAreaIds = [];
+	let matchingUpsideDownAreaIds = [];
+	const regex = RegExp(`${searchInputValue}`, 'gi');
+	data.getAttractions().then((fbAttractions) => {
+		let attractions = attractionsJS.applyUpsideDowntoAttractions(fbAttractions);
 		attractions.forEach((attraction) => {
 			if (regex.test(attraction.name)) {
-				matchingIds.push(attraction.area_id); 
+				matchingAreaIds.push(attraction.area_id);
+				if (attraction.isUpsideDown === true) {
+					matchingUpsideDownAreaIds.push(attraction.area_id);
+				} 
 			}
 		});
-		highlightAreas(matchingIds);
+		let uniqueMatchingAreaIds = [...new Set(matchingAreaIds)]; 
+		let uniqueMatchingUpsideDownAreaIds = [...new Set(matchingUpsideDownAreaIds)];
+		highlightAreas(uniqueMatchingAreaIds);
+		giveAreasUpsideDownImage(uniqueMatchingUpsideDownAreaIds);
 	}); 
+};
+
+const giveAreasUpsideDownImage = (matchingAreas) => {
+	$('.thumbnail').each( function () {
+		let domElement = $(this); 
+		let domId = $(this).data("area-id");
+		matchingAreas.forEach((id) => {
+			if (id === domId) {
+				domElement.addClass('upside-down-image');
+			}
+		});
+	});
 };
 
 
@@ -45,16 +65,30 @@ const highlightAreas = (matchingIds) => {
 		});
 	});
 };
+let userSelectedDateAndTime;
 
-// from getCurrentTime and getSelectedTime
-const showAttractionsByTime = (chosenTime) => {
-	// get attractions ...
-		// ... filter attractions based on the time the user clicked
-		// ... and send those results to dom
-		// ... 
-	// dom.domStringDetails(openAttractions, false);
+const showAttractionsByTime = () => {
 
-};
+		$("#datepicker").blur(() => {
+			userSelectedDateAndTime = time.getSelectedDay();
+			if (userSelectedDateAndTime != undefined) {
+
+				data.getAttractionsWithAreasByTime(userSelectedDateAndTime);
+				$("#user-time-feedback").html("Things Happening on: " + userSelectedDateAndTime);
+			}
+
+		});
+
+		$(".dropdown-menu").click((e) => {
+			userSelectedDateAndTime = time.getSelectedTime(e);
+			if (userSelectedDateAndTime != undefined) {
+
+				data.getAttractionsWithAreasByTime(userSelectedDateAndTime);
+				$("#user-time-feedback").html("Things Happening on: " + userSelectedDateAndTime);
+			}
+ });
+
+}; // end showAttractionsByTime()
 
 const clickArea = () => {
 	$(document).ready(() => {
@@ -69,20 +103,9 @@ const clickArea = () => {
 			}).catch((err) => {
 				console.log(err);
 			});
-			console.log("listening for click on .thumbnail");
 		}));
 	});
 };
-
-
-// 	//do something to get the clicked thumbnail data-area-id (e.)
-// 	// when user clicks on a particular area ...
-// 		// ... then a list of attracitons in that area is populated on the sidebar
-// 		// ... AND finds the areaId of the clicked area ...
-// 			// ... sends values to domStringDetails
-// 	//dom.domStringDetails("area", parkMash, areaId);
-// };
-
 
 //***use this to test functions requiring ajax calls - just press "t" in the search box and this with execute**** 
 const testFunction = () => {
@@ -97,9 +120,15 @@ const testFunction = () => {
 	}); 
 };
 
+const init = () => {
+	showAttractionsByTime();
+	clickArea();
+	pressEnter();
+};
+
+
 module.exports = {
-	pressEnter, 
-	testFunction,
-	clickArea
+	init,
+	testFunction
 };
 

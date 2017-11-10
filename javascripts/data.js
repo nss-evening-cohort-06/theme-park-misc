@@ -7,6 +7,8 @@ const moment = require('../lib/node_modules/moment/moment.js');
 //FIREBASE
 
 let firebaseKey = '';
+let sortedArray = [];
+
 
 const setFirebaseKey = (key) => {
     firebaseKey = key; 
@@ -34,31 +36,16 @@ const retrieveKeys = () => {
         return getAttractionsWithTypeAndMaintenanceTickets();
     }).then((attractions) => {
         updateFixedAttractions(attractions);
-        giveAreasUpsideDownColor(attractions);
     }).catch((error) => {
         console.log(error); 
     });
 };
 
-const giveAreasUpsideDownColor = (attractions) => {
-		let upsideDownAreas = attractionsJS.getUpsideDownAreas(attractions); 
-		$('.thumbnail').each( function () {
-			let domElement = $(this); 
-			let domId = $(this).data("area-id");
-			upsideDownAreas.forEach((id) => {
-				if (id === domId) {
-                    domElement.css("background-color", "");
-                    domElement.addClass("upside-down");
-				}
-			});
-		});
-};
 
 const updateFixedAttractions = (attractions) => {
     let fixedAttractions = attractionsJS.findFixedAttractions(attractions, moment());
     fixedAttractions.forEach((fixedAttraction) => {
         updateFixedAttraction(fixedAttraction).then((result) => {
-            console.log(result);
         }).catch((error) => {
             console.log(error); 
         });
@@ -222,7 +209,6 @@ const getAttractionsWithTypeByAreaId = (areaId) => {
     });
 };
 
-
 const getAttractionsWithType = () => {
     let attractions = []; 
     return new Promise ((resolve, reject) => {
@@ -295,15 +281,61 @@ const getAttractionsWithTypeAndMaintenanceTicketsbyAreaId = (areaId) => {
 };
 
 
+// ON PAGE LOAD ...
+const getAttractionsWithAreasByTime = (userSelectedDateAndTime) => {    // this will at some point need to accept a time to pass along
+
+  let attractions = [];
+
+    getAttractionsWithTypeAndMaintenanceTickets().then((_attractions) => {
+      attractions = _attractions;
+      let availableAttractions = attractionsJS.getOpenAttractions(attractions, userSelectedDateAndTime);
+    // if any attraction has a time ...
+        // let attractionsWithTimes = availableAttractions.filter((attraction) => {
+        attractions = availableAttractions.filter((attraction) => {
+
+            return attraction.times;
+      }); // end filter
+    // return filterByTime(attractionsWithTimes, userSelectedDateAndTime);
+    return getAreas();
+    }).then((areas) => {
+        filterByTime(attractions, areas, userSelectedDateAndTime);
+    }); // end 
+};
+
+
+const filterByTime = (onesWithTime, areas, userSelectedDateAndTime) => {
+    // holds matching attractions by name
+    let holdingArray = [];
+
+        onesWithTime.forEach((attraction) => {
+            attraction.times.forEach((time) => {
+
+                if (moment(userSelectedDateAndTime, 'LLLL').startOf('hour').format("LT") === moment(time, 'h:A').startOf('hour').format("LT")) {
+                    holdingArray.push(attraction);
+                    areas.forEach((area) => {
+                        if (attraction.area_id === area.id) {
+                            attraction.areaName = area.name;
+                            sortedArray.push(attraction);                        
+                        }
+                    });
+                } // end if for time comparison
+            }); // end onesWithTime.forEach(time)     
+        });  
+    dom.domStringDetails(sortedArray, false);
+    sortedArray = []; 
+};
+
+
 module.exports = {
     getAttractions,
     getAttractionsByAreaId,
     getAttractionsByType,
     getAttractionTypes,
     getAttractionsWithTypeByAreaId,
+    getAttractionsWithAreasByTime,
     getAttractionsWithTypeAndMaintenanceTicketsbyAreaId,
     updateFixedAttraction,
     getAreas,
     getParkInfo,
-    retrieveKeys,
+    retrieveKeys
 };
