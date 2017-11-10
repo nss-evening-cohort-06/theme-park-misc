@@ -2,7 +2,9 @@
 
 const dom = require('./dom'); 
 const attractionsJS = require('./attractions');
+const time = require('./time');
 const moment = require('../lib/node_modules/moment/moment.js');
+
 
 //FIREBASE
 
@@ -34,6 +36,9 @@ const retrieveKeys = () => {
     }).then((areas) => {
         dom.domStringAreas(areas);
         return getAttractionsWithTypeAndMaintenanceTickets();
+    }).then((attractions) => {
+        dom.domStringDetails(attractions);
+        return getAttractionsOpenAtCurrentTime();
     }).then((attractions) => {
         updateFixedAttractions(attractions);
     }).catch((error) => {
@@ -323,6 +328,20 @@ const filterByTime = (onesWithTime, areas, userSelectedDateAndTime) => {
         });  
     dom.domStringDetails(sortedArray, false);
     sortedArray = []; 
+};
+
+const getAttractionsOpenAtCurrentTime = (currentTime) => { 
+  let attractions = [];
+    getAttractionsWithTypeAndMaintenanceTickets().then((_attractions) => {
+      attractions = _attractions;
+      let availableAttractions = attractionsJS.getOpenAttractions(attractions, currentTime);
+        attractions = availableAttractions.filter((attraction) => {
+            return attraction.times;
+      });
+    return getAreas();
+    }).then((areas) => {
+        filterByTime(attractions, areas, currentTime);
+    }); A
 };
 
 

@@ -119,6 +119,11 @@ const testFunction = () => {
 	}); 
 };
 
+const getAttractionsOpenAtCurrentTime = (currentTime) => {
+	data.getAttractionsWithAreasByTime(currentTime);
+}
+
+
 const init = () => {
 	showAttractionsByTime();
 	clickArea();
