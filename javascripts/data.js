@@ -37,15 +37,12 @@ const retrieveKeys = () => {
         dom.domStringAreas(areas);
         return getAttractionsWithTypeAndMaintenanceTickets();
     }).then((attractions) => {
-        dom.domStringDetails(attractions);
-        return getAttractionsOpenAtCurrentTime();
-    }).then((attractions) => {
         updateFixedAttractions(attractions);
+        getAttractionsOpenAtCurrentTime(moment());
     }).catch((error) => {
         console.log(error); 
     });
 };
-
 
 const updateFixedAttractions = (attractions) => {
     let fixedAttractions = attractionsJS.findFixedAttractions(attractions, moment());
@@ -341,7 +338,7 @@ const getAttractionsOpenAtCurrentTime = (currentTime) => {
     return getAreas();
     }).then((areas) => {
         filterByTime(attractions, areas, currentTime);
-    }); A
+    }); 
 };
 
 

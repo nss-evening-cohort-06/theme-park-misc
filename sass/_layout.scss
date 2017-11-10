@@ -1,12 +1,8 @@
 @import 'colors';
 
-
-#timeDropdown {
-    justify-content: center;
-}
-
 #datepicker {
-    justify-content: center;
+    width: 200px;
+    height: 35px;
 }
 
 .thumbnail {
@@ -34,4 +30,8 @@
 
 #sideContainer {
 	padding-left: 0;
+}
+
+#areaHolder {
+    padding-top: 5px;
 }
