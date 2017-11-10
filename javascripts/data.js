@@ -41,25 +41,11 @@ const retrieveKeys = () => {
     });
 };
 
-// const giveAreasUpsideDownColor = (attractions) => {
-// 		let upsideDownAreas = attractionsJS.getUpsideDownAreas(attractions); 
-// 		$('.thumbnail').each( function () {
-// 			let domElement = $(this); 
-// 			let domId = $(this).data("area-id");
-// 			upsideDownAreas.forEach((id) => {
-// 				if (id === domId) {
-//                     domElement.css("background-color", "");
-//                     domElement.addClass("upside-down");
-// 				}
-// 			});
-// 		});
-// };
 
 const updateFixedAttractions = (attractions) => {
     let fixedAttractions = attractionsJS.findFixedAttractions(attractions, moment());
     fixedAttractions.forEach((fixedAttraction) => {
         updateFixedAttraction(fixedAttraction).then((result) => {
-            console.log(result);
         }).catch((error) => {
             console.log(error); 
         });

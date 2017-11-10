@@ -1,4 +1,6 @@
 @import 'colors';
+@import 'cards'; 
+@import 'attractions'; 
 @import '../lib/node_modules/pikaday/scss/pikaday.scss';
 
 body {
@@ -10,20 +12,18 @@ body {
     -moz-box-shadow:inset 0px 0px 0px 5px #000;
     box-shadow:inset 0px 0px 0px 5px #000;
 }
-
-
 .scrollable-menu {
     height: auto;
     max-height: 150px;
     overflow-x: hidden;
 }
-
 .thumbnail {
 	height: 220px;
 	text-align: center;
 	overflow: auto;
 	color: $lightText;
-	font-size: 11px;
+    font-size: 11px;
+    cursor: pointer;
 }
 
 .navMargin {
@@ -31,16 +31,14 @@ body {
 }
 
 #sidebar-wrapper {
-    width: 30%;
+    width: 100%;
+    height: 100vh;
     float: left;
     min-width: 426px;
     color: $sidebarText;
+    overflow: auto; 
 }
 
-.set-height {
-	height: 455px;
-	overflow: scroll;
-}
 
 #sideContainer {
 	padding-left: 0;

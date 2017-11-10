@@ -20,7 +20,6 @@ const getCurrentTime = () => {
 	let currentDateFormated = moment(currentDate).format("dddd, MMMM DD YYYY");
 	let currentTime = moment().format("hA");
 	let currentDateAndTime = currentDateFormated + " " + currentTime;
-	console.log("current date and time", currentDateAndTime);
 };
 
 const getSelectedDay = () => {

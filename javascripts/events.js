@@ -11,7 +11,8 @@ const pressEnter = () => {
 		let keyCode = e.keyCode || e.which; 
 		if (keyCode === 13) {
 			e.preventDefault();
-			$('.thumbnail').removeClass("area-border");  
+			$('.thumbnail').removeClass("area-border");
+			$('.thumbnail').removeClass("upside-down-image");
 			if (this.value !== '') {
 				matchingAttractions(this.value);
 			}
@@ -20,17 +21,36 @@ const pressEnter = () => {
 };
 
 const matchingAttractions = (searchInputValue) => {
-	let matchingIds = [];
-	let uniqueMatchingIds = []; 
-	const regex = new RegExp(`${searchInputValue}`, 'gi');
-	data.getAttractions().then((attractions) => {
+	let matchingAreaIds = [];
+	let matchingUpsideDownAreaIds = [];
+	const regex = RegExp(`${searchInputValue}`, 'gi');
+	data.getAttractions().then((fbAttractions) => {
+		let attractions = attractionsJS.applyUpsideDowntoAttractions(fbAttractions);
 		attractions.forEach((attraction) => {
 			if (regex.test(attraction.name)) {
-				matchingIds.push(attraction.area_id); 
+				matchingAreaIds.push(attraction.area_id);
+				if (attraction.isUpsideDown === true) {
+					matchingUpsideDownAreaIds.push(attraction.area_id);
+				} 
 			}
 		});
-		highlightAreas(matchingIds);
+		let uniqueMatchingAreaIds = [...new Set(matchingAreaIds)]; 
+		let uniqueMatchingUpsideDownAreaIds = [...new Set(matchingUpsideDownAreaIds)];
+		highlightAreas(uniqueMatchingAreaIds);
+		giveAreasUpsideDownImage(uniqueMatchingUpsideDownAreaIds);
 	}); 
+};
+
+const giveAreasUpsideDownImage = (matchingAreas) => {
+	$('.thumbnail').each( function () {
+		let domElement = $(this); 
+		let domId = $(this).data("area-id");
+		matchingAreas.forEach((id) => {
+			if (id === domId) {
+				domElement.addClass('upside-down-image');
+			}
+		});
+	});
 };
 
 
@@ -54,7 +74,6 @@ const showAttractionsByTime = () => {
 			if (userSelectedDateAndTime != undefined) {
 
 				data.getAttractionsWithAreasByTime(userSelectedDateAndTime);
-				console.log(userSelectedDateAndTime);
 				$("#user-time-feedback").html("Things Happening on: " + userSelectedDateAndTime);
 			}
 
@@ -65,7 +84,6 @@ const showAttractionsByTime = () => {
 			if (userSelectedDateAndTime != undefined) {
 
 				data.getAttractionsWithAreasByTime(userSelectedDateAndTime);
-				console.log(userSelectedDateAndTime);
 				$("#user-time-feedback").html("Things Happening on: " + userSelectedDateAndTime);
 			}
  });
@@ -76,7 +94,6 @@ const clickArea = () => {
 	$(document).ready(() => {
 		$(document).on("click", ".thumbnail", (function(e){
 			let areaId = $(this).data("area-id");
-			console.log("areaId", areaId);
 			data.getAttractionsWithTypeAndMaintenanceTicketsbyAreaId(areaId).then((attractions) => {
 				let openAttractions = attractionsJS.getOpenAttractions(attractions);
 				let openWithUpsideDown = attractionsJS.applyUpsideDowntoAttractions(openAttractions);
@@ -85,7 +102,6 @@ const clickArea = () => {
 			}).catch((err) => {
 				console.log(err);
 			});
-			console.log("listening for click on .thumbnail");
 		}));
 	});
 };
