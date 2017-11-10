@@ -46,7 +46,6 @@ const updateFixedAttractions = (attractions) => {
     let fixedAttractions = attractionsJS.findFixedAttractions(attractions, moment());
     fixedAttractions.forEach((fixedAttraction) => {
         updateFixedAttraction(fixedAttraction).then((result) => {
-            console.log(result);
         }).catch((error) => {
             console.log(error); 
         });
