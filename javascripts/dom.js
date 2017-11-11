@@ -36,7 +36,7 @@ const domStringDetails = (attractionsArray, isArea) => {
       let upsideDownClass =  (attractionsArray[i].isUpsideDown === true) ? "upside-down" : "";
       domStrang += `<div class="panel panel-default">`;
       domStrang +=   `<div class="panel-heading" role="tab" id="heading${i}">`;
-      domStrang +=     `<h4 class="panel-title">`;
+      domStrang +=     `<h4 class="panel-title ${upsideDownClass}">`;
       let heading = (isArea) ? `<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse${i}" aria-expanded="false" aria-controls="collapse${i}">
                               ${attractionsArray[i].name} (${attractionsArray[i].attractionType})</a>`
                               :
