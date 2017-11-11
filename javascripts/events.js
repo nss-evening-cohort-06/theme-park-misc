@@ -101,15 +101,22 @@ const clickArea = () => {
 				let openAttractions = attractionsJS.getOpenAttractions(attractions);
 				let openWithUpsideDown = attractionsJS.applyUpsideDowntoAttractions(openAttractions);
 				dom.domStringDetails(openWithUpsideDown, moment());
-			  $("#time-feedback").addClass("hide");
-
-
+				$("#time-feedback").addClass("hide");
+				$('#dropdownMenu1').html(`Select A Time <span class="caret"></span>`);			  
+				$('#datepicker').val('');	
 			}).catch((err) => {
 				console.log(err);
 			});
 		}));
 	});
 };
+
+const showSelectedTime = () => {
+	$('#time-picker').on('click', 'a', function(e) {
+		let selectedTime = this.text; 
+		$('#dropdownMenu1').html(`${selectedTime} <span class="caret"></span>`);
+	});
+}; 
 
 //***use this to test functions requiring ajax calls - just press "t" in the search box and this with execute**** 
 const testFunction = () => {
@@ -129,6 +136,7 @@ const init = () => {
 	showAttractionsByTime();
 	clickArea();
 	pressEnter();
+	showSelectedTime(); 
 };
 
 
