@@ -119,17 +119,17 @@ const showSelectedTime = () => {
 }; 
 
 //***use this to test functions requiring ajax calls - just press "t" in the search box and this with execute**** 
-const testFunction = () => {
-	$("#searchBox").keypress(function (e) {
-		let keyCode = e.keyCode || e.which; 
-		if (keyCode === 116) {
-			data.getAttractions().then((attractions) => {
-				let upsideDownAttractions = attractionsJS.applyUpsideDowntoAttractions(attractions); 
-				console.log(upsideDownAttractions); 
-			});
-		}
-	}); 
-};
+// const testFunction = () => {
+// 	$("#searchBox").keypress(function (e) {
+// 		let keyCode = e.keyCode || e.which; 
+// 		if (keyCode === 116) {
+// 			data.getAttractions().then((attractions) => {
+// 				let upsideDownAttractions = attractionsJS.applyUpsideDowntoAttractions(attractions); 
+// 				console.log(upsideDownAttractions); 
+// 			});
+// 		}
+// 	}); 
+// };
 
 
 const init = () => {
@@ -142,6 +142,6 @@ const init = () => {
 
 module.exports = {
 	init,
-	testFunction
+	// testFunction
 };
 
