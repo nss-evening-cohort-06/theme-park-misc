@@ -290,8 +290,7 @@ const getAttractionsWithAreasByTime = (userSelectedDateAndTime) => {    // this 
 
     getAttractionsWithTypeAndMaintenanceTickets().then((_attractions) => {
       attractions = _attractions;
-      let attractionsWithUpsideDown = attractionsJS.applyUpsideDowntoAttractions(attractions);
-      let availableAttractions = attractionsJS.getOpenAttractions(attractionsWithUpsideDown, userSelectedDateAndTime);
+      let availableAttractions = attractionsJS.getOpenAttractions(attractions, userSelectedDateAndTime);
     // if any attraction has a time ...
         // let attractionsWithTimes = availableAttractions.filter((attraction) => {
         attractions = availableAttractions.filter((attraction) => {
@@ -333,8 +332,7 @@ const getAttractionsOpenAtCurrentTime = (currentTime) => {
   let attractions = [];
     getAttractionsWithTypeAndMaintenanceTickets().then((_attractions) => {
       attractions = _attractions;
-      let attractionsWithUpsideDown = attractionsJS.applyUpsideDowntoAttractions(attractions);
-      let availableAttractions = attractionsJS.getOpenAttractions(attractionsWithUpsideDown, currentTime);
+      let availableAttractions = attractionsJS.getOpenAttractions(attractions, currentTime);
         attractions = availableAttractions.filter((attraction) => {
             return attraction.times;
       });
