@@ -3,3 +3,4 @@ lib/node_modules
 dist/app.js
 styles/main.css
 public
+db/apiKeys.json
